@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   x_handler.c                                        :+:      :+:    :+:   */
+/*   printf_x_handler.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 16:48:49 by akdovlet          #+#    #+#             */
-/*   Updated: 2023/12/27 23:26:26 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/04/25 15:54:21 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	x_width(unsigned int n, t_flag flags, int bin)
 	int	len;
 
 	count = 0;
-	len = ft_nbcount(n, 16);
+	len = pf_nbcount(n, 16);
 	x_rules(&flags, len, n);
 	if (flags.dash)
 	{

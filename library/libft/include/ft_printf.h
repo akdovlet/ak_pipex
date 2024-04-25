@@ -6,17 +6,14 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 17:41:04 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/01/02 12:09:12 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/04/25 15:54:21 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include <unistd.h>
-# include <stdarg.h>
-# include <stdint.h>
-# include <limits.h>
+# include "libft.h"
 
 typedef struct s_flag
 {
@@ -40,7 +37,7 @@ int		ft_put_n_count_nbr(long n, int count);
 int		ft_put_n_count_u(unsigned long n, int count);
 int		ft_put_n_count_hex(size_t n, int count, int bin);
 
-int		ft_nbcount(long long n, int base);
+int		pf_nbcount(long long n, int base);
 int		mini_atoi(char const *str, int *i);
 int		positive_int_len(unsigned long long n, int base);
 int		negative_int_len(long long n, int base);

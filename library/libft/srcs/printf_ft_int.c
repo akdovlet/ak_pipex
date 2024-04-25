@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_int.c                                           :+:      :+:    :+:   */
+/*   printf_ft_int.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 14:58:12 by akdovlet          #+#    #+#             */
-/*   Updated: 2023/12/28 17:26:44 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/04/25 15:54:21 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	positive_int_len(unsigned long long n, int base)
 
 // this was made specifically to handle ULONG_MAX
 // probably not necessary but might as well
-int	ft_nbcount(long long n, int base)
+int	pf_nbcount(long long n, int base)
 {
 	if (n < 0)
 		return (negative_int_len(n, base));

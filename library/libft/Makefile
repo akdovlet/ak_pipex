@@ -6,110 +6,93 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/15 16:05:42 by akdovlet          #+#    #+#              #
-#    Updated: 2024/04/19 15:52:43 by akdovlet         ###   ########.fr        #
+#    Updated: 2024/04/25 15:25:46 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft.a
+NAME	=	libft.a
 
-INCLUDE = libft.h
+SRCS	=	ak_countword.c			\
+			ft_free_array.c			\
+			ft_ischarset.c			\
+			ft_multi_split.c		\
+			ft_strndup.c			\
+			ft_atoi.c				\
+			ft_atol.c				\
+			ft_isascii.c			\
+			ft_isalnum.c			\
+			ft_isalpha.c			\
+			ft_isdigit.c			\
+			ft_isprint.c			\
+			ft_split.c				\
+			ft_strjoin.c			\
+			ft_strdup.c				\
+			ft_strlcpy.c			\
+			ft_strlcat.c			\
+			ft_strlen.c				\
+			ft_strnstr.c			\
+			ft_tolower.c			\
+			ft_toupper.c			\
+			ft_itoa.c				\
+			ft_memcmp.c				\
+			ft_memcpy.c				\
+			ft_putstr_fd.c			\
+			ft_putchar_fd.c			\
+			ft_putnbr_fd.c			\
+			ft_calloc.c				\
+			ft_putendl_fd.c			\
+			ft_strncmp.c			\
+			ft_bzero.c				\
+			ft_strchr.c				\
+			ft_strrchr.c			\
+			ft_memmove.c 			\
+			ft_memset.c 			\
+			ft_memchr.c 			\
+			ft_substr.c 			\
+			ft_strmapi.c 			\
+			ft_striteri.c 			\
+			ft_strtrim.c			\
+			ft_lstnew_bonus.c		\
+			ft_lstadd_front_bonus.c	\
+			ft_lstsize_bonus.c		\
+			ft_lstlast_bonus.c		\
+			ft_lstadd_back_bonus.c	\
+			ft_lstdelone_bonus.c	\
+			ft_lstclear_bonus.c		\
+			ft_lstiter_bonus.c		\
+			ft_lstmap_bonus.c		\
+			get_next_line.c			\
+			get_next_line_utils.c	\
+			get_next_line_multi.c	\
+			printf_c_handler.c		\
+			printf_d_handler.c		\
+			printf_ft_draft.c		\
+			printf_ft_int.c			\
+			printf_ft_printf.c		\
+			printf_pad_manager.c	\
+			printf_parsing.c		\
+			printf_p_handler.c		\
+			printf_s_handler.c		\
+			printf_u_handler.c		\
+			printf_x_handler.c
+SRCS	:=	$(addprefix srcs/, $(SRCS))
+OBJS	:=	$(patsubst srcs/%.c,.objs/%.o,$(SRCS))
+DEPS	:=	$(OBJS:.o=.d)
 
-SRCS =	ak_countword.c		\
-		ft_free_array.c		\
-		ft_ischarset.c		\
-		ft_multi_split.c	\
-		ft_strndup.c		\
-		ft_atoi.c			\
-		ft_atol.c			\
-		ft_isascii.c		\
-		ft_isalnum.c		\
-		ft_isalpha.c		\
-		ft_isdigit.c		\
-		ft_isprint.c		\
-		ft_split.c			\
-		ft_strjoin.c		\
-		ft_strdup.c			\
-		ft_strlcpy.c		\
-		ft_strlcat.c		\
-		ft_strlen.c			\
-		ft_strnstr.c		\
-		ft_tolower.c		\
-		ft_toupper.c		\
-		ft_itoa.c			\
-		ft_memcmp.c			\
-		ft_memcpy.c			\
-		ft_putstr_fd.c		\
-		ft_putchar_fd.c		\
-		ft_putnbr_fd.c		\
-		ft_calloc.c			\
-		ft_putendl_fd.c		\
-		ft_strncmp.c		\
-		ft_bzero.c			\
-		ft_strchr.c			\
-		ft_strrchr.c		\
-		ft_memmove.c 		\
-		ft_memset.c 		\
-		ft_memchr.c 		\
-		ft_substr.c 		\
-		ft_strmapi.c 		\
-		ft_striteri.c 		\
-		ft_strtrim.c		\
-		ft_lstnew_bonus.c	\
-		ft_lstadd_front_bonus.c	\
-		ft_lstsize_bonus.c		\
-		ft_lstlast_bonus.c		\
-		ft_lstadd_back_bonus.c	\
-		ft_lstdelone_bonus.c	\
-		ft_lstclear_bonus.c		\
-		ft_lstiter_bonus.c		\
-		ft_lstmap_bonus.c		\
-		get_next_line.c			\
-		get_next_line_utils.c	\
-		get_next_line_multi.c
-SRCS := $(addprefix srcs/, $(SRCS))
-OBJS := $(patsubst srcs/%.c,objs/%.o,$(SRCS))
-DEPS := 	$(OBJS:.o=.d)
-
-define AK
-          :::     :::    :::   :::     ::::::::
-       :+: :+:   :+:   :+:   :+:     :+:    :+:
-     +:+   +:+  +:+  +:+   +:+ +:+        +:+
-   +#++:++#++: +#++:++   +#+  +:+      +#+
-  +#+     +#+ +#+  +#+ +#+#+#+#+#+  +#+
- #+#     #+# #+#   #+#      #+#   #+#
-###     ### ###    ###     ###  ##########
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣠⣦⣤⣴⣤⣤⣄⣀⣀⣀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣤⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⡀⠀⠀⣀⣀⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣛⣛⣻⣿⣦⣀⠀⢀⣀⣀⣏⣹⠀
-⢠⣶⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠭⠭⠽⠽⠿⠿⠭⠭⠭⠽⠿⠿⠛
-⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠛⠉⢻⣿⣿⣿⡟⠏⠉⠉⣿⢿⣿⣿⣿⣇⠀⠀⠀⠀⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⣿⣿⣿⣿⣿⣿⣿⡿⠿⠛⠉⠁⠀⠀⠀⢠⣿⣿⣿⠋⠑⠒⠒⠚⠙⠸⣿⣿⣿⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⣿⣿⡿⠿⠛⠉⠁⠀⠀⠀⠀⠀⠀⠀⣰⣿⣿⡿⠃⠀⠀⠀⠀⠀⠀⠀⢻⣿⣿⣿⣿⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠛⠛⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣿⣿⣿⣿⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣿⣿⣿⣿⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⢿⣿⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-endef
-export AK
-
-CC := cc
-CFLAGS := -Wall -Werror -Wextra -MMD -MP -Iinclude
-
-RM = rm -rf
+CC		:=	cc
+CFLAGS	:=	-Wall -Werror -Wextra -MMD -MP -Iinclude
 
 all: create_dirs $(NAME)
 
-title:
-	@echo "$$AK"
-
 create_dirs:
-	@if [ ! -d "objs" ]; then mkdir objs; fi
+	@if [ ! -d ".objs" ]; then mkdir .objs; fi
 
-objs/%.o: srcs/%.c
+.objs/%.o: srcs/%.c
 		@printf "\033[0;32%sm\tCompiling: $<\033[0m\r";
 		@$(CC) $(CFLAGS) -c $< -o $@;
 
 clean:
-	@if [ -d "objs" ]; then rm -rf objs && echo "\033[1;31mLibft .o files have been deleted\033[0m"; fi
+	@if [ -d ".objs" ]; then rm -rf .objs && echo "\033[1;31mLibft .o files have been deleted\033[0m"; fi
 
 fclean: clean
 	@if [ -f "libft.a" ]; then rm -rf libft.a  && echo "\033[1;31mLibft .a file has been deleted\033[0m"; fi

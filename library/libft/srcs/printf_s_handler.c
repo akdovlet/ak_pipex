@@ -12,16 +12,6 @@
 
 #include "../include/ft_printf.h"
 
-int	ft_strlen(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
 int	ft_putstrlen(char *str, int len)
 {
 	if (len == 0)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   d_handler.c                                        :+:      :+:    :+:   */
+/*   printf_d_handler.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 16:56:11 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/01/15 16:44:53 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/04/25 15:54:21 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	d_width_m(long n, t_flag flags)
 	int	len;
 
 	count = 0;
-	len = ft_nbcount(n, 10);
+	len = pf_nbcount(n, 10);
 	d_rules(&flags, len, n);
 	if (flags.dash)
 	{

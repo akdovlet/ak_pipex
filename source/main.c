@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 23:07:20 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/04/23 18:34:16 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/04/25 20:38:32 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,35 +16,26 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <errno.h>
 
 //open, close, read, write,
 // malloc, free, perror, access
 // strerror, env, dup, dup2,
 // execve, exit, fork, pipe,
 // unlink, wait, waitpid
-
 int main(int ac, char **av, char **env)
 {
 	int		i;
 	int		id;
+	t_data	data;
 	int		fd[2];
-	(void)ac;
-	(void)av;
 
-	i = 0;
-	if (ac == 1)
-		return (0);
-	if (pipe(fd) == -1)
-	{
-		printf("Pipe Error\n");
+	if (ac < 5 || !parse_and_check(ac, av, env, &data))
 		return (1);
-	}
 	id = fork();
-	if (id == 0)
-		printf("%s\n", parse_env(env));
-		// while (env[i])
-		// 	printf("%s\n", env[i++]);
+	if (pipe(fd) == -1)
+		return (perror("pipex"), 1);
 	if (id != 0)
-		wait(NULL);
-	return (1);
+		printf("here\n");
+	return (0);
 }

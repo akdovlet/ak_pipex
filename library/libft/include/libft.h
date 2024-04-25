@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:27:13 by adovleto          #+#    #+#             */
-/*   Updated: 2024/04/20 23:05:03 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/04/25 15:26:57 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,11 @@
 # include <stddef.h>
 # include <stdlib.h>
 # include <stdint.h>
-# include <stdbool.h>
+# include <stdarg.h>
+# include <limits.h>
+# include <fcntl.h>
+# include "get_next_line.h"
+# include "ft_printf.h"
 
 typedef struct s_list
 {
@@ -79,14 +83,5 @@ void	ft_lstadd_back(t_list **alst, t_list *new);
 void	ft_lstclear(t_list **lst, void (*del)(void*));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void(*del)(void *));
-
-// get_next_line
-char	*get_next_line(int fd);
-char	*get_next_line_multi(int fd);
-int		ft_findline(char *str);
-char	*ft_next_line(char *str);
-char	*ft_line(char *str);
-char	*ak_strjoin(char *s1, char *s2);
-char	*ft_initialize(char *save, int fd);
 
 #endif

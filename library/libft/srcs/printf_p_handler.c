@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_handler.c                                        :+:      :+:    :+:   */
+/*   printf_p_handler.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 17:49:03 by akdovlet          #+#    #+#             */
-/*   Updated: 2023/12/27 23:24:00 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/04/25 15:54:21 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	p_handler(uintptr_t n, t_flag flags)
 	if (n == ULONG_MAX)
 		numlen = 16;
 	else
-		numlen = ft_nbcount(n, 16);
+		numlen = pf_nbcount(n, 16);
 	if (flags.dash)
 	{
 		count += ft_putstrlen("0x", 2);
