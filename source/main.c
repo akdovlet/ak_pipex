@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 23:07:20 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/04/25 20:38:32 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/04/26 20:42:57 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 //open, close, read, write,
 // malloc, free, perror, access
-// strerror, env, dup, dup2,
+// strerror, env, dup, dup2
 // execve, exit, fork, pipe,
 // unlink, wait, waitpid
 int main(int ac, char **av, char **env)

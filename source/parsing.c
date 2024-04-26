@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:52:22 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/04/25 21:07:16 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/04/26 20:43:55 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ bool	parse_and_check(int ac, char **av, char **env, t_data *data)
 	if (!data->path)
 		return (ft_putstr_fd("pipex: split failed\n", STDERR_FILENO), false);
 	if (!find_exec(av[2], data))
-		return (perror("pipex"), free(data->path), false);
+		return (perror("pipexsss"), free(data->path), false);
 	printf("%s\n", data->cmd);
 	return (true);
 }
