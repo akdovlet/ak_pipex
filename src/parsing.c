@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:52:22 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/04/26 20:43:55 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/04/28 18:44:10 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ bool	find_exec(char *cmd, t_data *data)
 	while (data->path[i])
 	{
 		path = ft_strjoin(data->path[i], cmd);
+		if (!path)
+			return (false);
 		if (file_access(path, X_OK))
 		{
 			data->cmd = path;
@@ -61,32 +63,32 @@ bool	find_exec(char *cmd, t_data *data)
 }
 
 
-bool	check_files(char *infile, char *outfile, t_data *data)
-{
-	if (!file_access(infile, R_OK))
-		return (perror("pipex"), false);
-	else
-	{
-		data->fd[0] = open(infile, O_RDONLY);
-		if (data->fd[0] < 0)
-			return (perror("pipex"), false);
-	}
-	if (!file_access(outfile, F_OK))
-	{
-		data->fd[1] = open(outfile, O_CREAT);
-		if (data->fd[1] < 0)
-			return (close(data->fd[0]), perror("pipex"), false);
-	}
-	else if (file_access(outfile, R_OK))
-	{
-		data->fd[1] = open(outfile, O_APPEND);
-		if (data->fd[1] < 0)
-			return (close(data->fd[0]), perror("pipex"), false);
-	}
-	else
-		return (perror("pipex"), false);
-	return (true);
-}
+// bool	check_files(char *infile, char *outfile, t_data *data)
+// {
+// 	if (!file_access(infile, R_OK))
+// 		return (perror("pipex"), false);
+// 	else
+// 	{
+// 		data->fd[0] = open(infile, O_RDONLY);
+// 		if (data->fd[0] < 0)
+// 			return (perror("pipex"), false);
+// 	}
+// 	if (!file_access(outfile, F_OK))
+// 	{
+// 		data->fd[1] = open(outfile, O_CREAT);
+// 		if (data->fd[1] < 0)
+// 			return (close(data->fd[0]), perror("pipex"), false);
+// 	}
+// 	else if (file_access(outfile, R_OK))
+// 	{
+// 		data->fd[1] = open(outfile, O_APPEND);
+// 		if (data->fd[1] < 0)
+// 			return (close(data->fd[0]), perror("pipex"), false);
+// 	}
+// 	else
+// 		return (perror("pipex"), false);
+// 	return (true);
+// }
 
 // Pipe execute toutes les commandes, essaie d'ouvrir tous les fichier
 // Il ne s'arrete pas a la premiere erreur. Va afficher les erreurs par
@@ -100,8 +102,8 @@ bool	parse_and_check(int ac, char **av, char **env, t_data *data)
 	char	*path;
 	char	**spath;
 
-	if (!check_files(av[1], av[ac -1], data))
-		return (false);
+	// if (!check_files(av[1], av[ac -1], data))
+	// 	return (false);
 	path = parse_env(env);
 	if (!path)
 		return (perror("pipex"), false);
