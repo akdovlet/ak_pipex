@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/01 13:57:12 by akdovlet          #+#    #+#              #
-#    Updated: 2024/04/28 17:45:29 by akdovlet         ###   ########.fr        #
+#    Updated: 2024/04/29 18:17:13 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,11 +43,11 @@ $(LIBFT):
 	@$(MAKE) -C $(LIBDIR)/libft
 
 clean:
-	@if [ -d "$(BUILD)" ]; then $(RM) -r $(BUILD) && echo "\033[1;31mpipex .o files have been deleted\033[0m"; fi
+	@if [ -d "$(BUILD)" ]; then $(RM) -r $(BUILD) && echo "\033[1;31m$(NAME) .o files have been deleted\033[0m"; fi
 	@$(MAKE) --no-print-directory clean -C $(LIBDIR)/libft
 
 fclean: clean
-	@if [ -f "pipex" ]; then $(RM) pipex && echo "\033[1;31mpipex executable has been deleted\033[0m"; fi
+	@if [ -f "$(NAME)" ]; then $(RM) $(NAME) && echo "\033[1;31m$(NAME) executable has been deleted\033[0m"; fi
 	@$(MAKE) --no-print-directory fclean -C $(LIBDIR)/libft
 
 re: fclean all
