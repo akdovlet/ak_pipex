@@ -1,3 +1,9 @@
+# Test files
+*.txt
+
+# Vscode bullshit
+.vscode
+
 # Prerequisites
 *.d
 

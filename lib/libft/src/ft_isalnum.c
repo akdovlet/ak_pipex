@@ -1,32 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/20 23:07:37 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/04 13:12:35 by akdovlet         ###   ########.fr       */
+/*   Created: 2023/09/10 17:26:57 by adovleto          #+#    #+#             */
+/*   Updated: 2024/05/02 17:56:26 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "libft.h"
 
-# include <stdbool.h>
-# include "libft.h"
-
-typedef struct	s_data
+int	ft_isalnum(int c)
 {
-	char	**path;
-	char	*cmd;	
-	int		fd[2];
-}	t_data;
-
-char	*parse_env(char **env);
-bool	file_access(char *file, int check);
-bool	parse_and_check(int ac, char **av, char **env, t_data *data);
-
-char	**px_split(char const *s, char c);
-
-#endif
+	if (ft_isdigit((unsigned char)c) || ft_isalpha((unsigned char)c))
+		return (1);
+	return (0);
+}

@@ -6,13 +6,14 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/15 16:05:42 by akdovlet          #+#    #+#              #
-#    Updated: 2024/04/25 15:25:46 by akdovlet         ###   ########.fr        #
+#    Updated: 2024/05/03 12:35:22 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	libft.a
 
-SRCS	=	ak_countword.c			\
+SRCDIR	:=	src
+SRC		:=	ak_countword.c			\
 			ft_free_array.c			\
 			ft_ischarset.c			\
 			ft_multi_split.c		\
@@ -24,6 +25,7 @@ SRCS	=	ak_countword.c			\
 			ft_isalpha.c			\
 			ft_isdigit.c			\
 			ft_isprint.c			\
+			ft_isspace.c			\
 			ft_split.c				\
 			ft_strjoin.c			\
 			ft_strdup.c				\
@@ -75,8 +77,9 @@ SRCS	=	ak_countword.c			\
 			printf_s_handler.c		\
 			printf_u_handler.c		\
 			printf_x_handler.c
-SRCS	:=	$(addprefix srcs/, $(SRCS))
-OBJS	:=	$(patsubst srcs/%.c,.objs/%.o,$(SRCS))
+SRC		:=	$(addprefix $(SRCDIR)/, $(SRC))
+OBJDIR	:= .build
+OBJS	:=	$(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRC))
 DEPS	:=	$(OBJS:.o=.d)
 
 CC		:=	cc
@@ -85,17 +88,17 @@ CFLAGS	:=	-Wall -Werror -Wextra -MMD -MP -Iinclude
 all: create_dirs $(NAME)
 
 create_dirs:
-	@if [ ! -d ".objs" ]; then mkdir .objs; fi
+	@if [ ! -d "$(OBJDIR)" ]; then mkdir $(OBJDIR); fi
 
-.objs/%.o: srcs/%.c
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
 		@printf "\033[0;32%sm\tCompiling: $<\033[0m\r";
 		@$(CC) $(CFLAGS) -c $< -o $@;
 
 clean:
-	@if [ -d ".objs" ]; then rm -rf .objs && echo "\033[1;31mLibft .o files have been deleted\033[0m"; fi
+	@if [ -d "$(OBJDIR)" ]; then $(RM) -rf $(OBJDIR) && echo "\033[1;31m\tDeleted: libft $(OBJDIR)\033[0m"; fi
 
 fclean: clean
-	@if [ -f "libft.a" ]; then rm -rf libft.a  && echo "\033[1;31mLibft .a file has been deleted\033[0m"; fi
+	@if [ -f "$(NAME)" ]; then $(RM) -rf $(NAME)  && echo "\033[1;31m\tDeleted: $(NAME)\033[0m"; fi
 
 re: fclean all
 

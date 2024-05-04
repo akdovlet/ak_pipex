@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:52:22 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/04/28 18:44:10 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/04 12:25:22 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,7 @@ bool	find_exec(char *cmd, t_data *data)
 }
 
 
-// bool	check_files(char *infile, char *outfile, t_data *data)
-// {
-// 	if (!file_access(infile, R_OK))
-// 		return (perror("pipex"), false);
-// 	else
-// 	{
-// 		data->fd[0] = open(infile, O_RDONLY);
-// 		if (data->fd[0] < 0)
-// 			return (perror("pipex"), false);
-// 	}
+
 // 	if (!file_access(outfile, F_OK))
 // 	{
 // 		data->fd[1] = open(outfile, O_CREAT);
