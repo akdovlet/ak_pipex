@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 23:07:20 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/04 14:57:00 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/04 16:31:34 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	check_file(char *file)
 	return (fd);
 }
 
-int	mario_gaming(char *path, char *flags, char **env, int prevpipe)
+int	mario_gaming(char **cmd, char **env, int prevpipe)
 {
 	int	fd[2];
 	int	id;
@@ -51,21 +51,22 @@ int	mario_gaming(char *path, char *flags, char **env, int prevpipe)
 	if (!id)
 	{
 		close(fd[0]);
-		printf("fd[1] is: %d\n", fd[1]);
-		printf("prevpipe is: %d\n", prevpipe);
 		if(dup2(fd[1], STDOUT_FILENO) == -1)
 			return (perror("pipex1"), close(fd[1]), -1);
 		if (dup2(prevpipe, STDIN_FILENO) == -1)
 			return (perror("pipex2"), close(prevpipe), -1);
 		close(prevpipe);
-		execve(path, &flags, env);
+		execve(cmd[0], cmd, env);
 	}
-	close(fd[1]);
-	prevpipe = fd[0];
+	else
+	{
+		close(fd[1]);
+		prevpipe = fd[0];	
+	}
 	return (prevpipe);
 }
 
-int	get_out(char *path, char *flags, char **env, int prevpipe)
+int	get_out(char **cmd, char **env, int prevpipe)
 {
 	int	id;
 	int	outfile;
@@ -78,11 +79,15 @@ int	get_out(char *path, char *flags, char **env, int prevpipe)
 		close(prevpipe);
 		dup2(outfile, STDOUT_FILENO);
 		close(outfile);
-		execve(path, &flags, env);
+		if (cmd)
+			execve(cmd[0], cmd, env);
+	}
+	else
+	{
+		close(prevpipe);
+		wait(NULL);
 	}
 	close(outfile);
-	close(prevpipe);
-	wait(NULL);
 	return (0);
 }
 
@@ -92,17 +97,20 @@ int main(int ac, char **av, char **env)
 	int		id;
 	int		fd[2];
 	int		prev_pipe;
+	char	**cmd;
 
 	i = 1;
 	prev_pipe = check_file(av[i]);
 	i++;
 	if (prev_pipe < 0)
 		return (1);
-	while (i < ac)
+	while (i < ac - 1)
 	{
-		prev_pipe = mario_gaming(av[i], av[i + 1], env, prev_pipe);
-		i+= 2;
+		cmd = ft_split(av[i], ' ');
+		prev_pipe = mario_gaming(cmd, env, prev_pipe);
+		i++;
+		free(cmd);
 	}
-	get_out(av[i], av[i], env, prev_pipe);
+	get_out(cmd, env, prev_pipe);
 	return (0);
 }
