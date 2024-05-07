@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/01 13:57:12 by akdovlet          #+#    #+#              #
-#    Updated: 2024/05/04 11:16:37 by akdovlet         ###   ########.fr        #
+#    Updated: 2024/05/07 00:44:24 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,14 @@ NAME	=	pipex
 LIBDIR	=	lib
 LIBFT	= 	$(LIBDIR)/libft/libft.a
 
-SRC		:=	main.c		\
-			test.c		\
-			parsing.c	\
-			px_split.c
+SRC		:=	check_file.c	\
+			free.c			\
+			main.c			\
+			mario_gaming.c	\
+			parsing.c		\
+			px_split.c		\
+			seek_and_execute.c	\
+			setup.c
 SRC_DIR	:=	src
 BUILD	:=	.build
 SRC 	:=	$(addprefix $(SRC_DIR)/, $(SRC))

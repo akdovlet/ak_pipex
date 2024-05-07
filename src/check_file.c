@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   check_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/20 23:07:20 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/07 00:46:21 by akdovlet         ###   ########.fr       */
+/*   Created: 2024/05/06 23:36:19 by akdovlet          #+#    #+#             */
+/*   Updated: 2024/05/07 01:39:56 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-// open, close, read, write,
-// malloc, free, perror, access
-// strerror, env, dup, dup2
-// execve, exit, fork, pipe,
-// unlink, wait, waitpid
-int main(int ac, char **av, char **env)
+int	check_file(char *file)
 {
-	int		i;
-	t_data	data;
+	int	fd;
 
-	i = 2;
-	setup(&data, ac, av, env);
-	seek_and_execute(&data);
-	return (0);
+	if (!file_access(file, R_OK))
+		return(perror("pipex"), -1);
+	else
+	{
+		fd = open(file, O_RDONLY);
+		if (fd < 0)
+			return (perror("pipex"), -1);
+	}
+	return (fd);
 }

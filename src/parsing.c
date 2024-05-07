@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:52:22 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/04 12:25:22 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/07 02:06:25 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	file_access(char *file, int check)
 	return (false);
 }
 
-char	*parse_env(char **env)
+char	**parse_env(char **env)
 {
 	int	i;
 
@@ -33,7 +33,7 @@ char	*parse_env(char **env)
 	while (env[i])
 	{
 		if (!ft_strncmp("PATH=", env[i], 5))
-			return (ft_strdup(env[i] + 5));
+			return (px_split(env[i] + 5, ':'));
 		i++;
 	}
 	return (NULL);
@@ -51,10 +51,12 @@ bool	find_exec(char *cmd, t_data *data)
 		path = ft_strjoin(data->path[i], cmd);
 		if (!path)
 			return (false);
-		if (file_access(path, X_OK))
+		if (!access(path, X_OK))
 		{
-			data->cmd = path;
-			return (true);
+			execve(path, data->cmd, data->env);
+			free(path);
+			exit(EXIT_FAILURE);
+			return (false);
 		}
 		free(path);
 		i++;
@@ -87,22 +89,3 @@ bool	find_exec(char *cmd, t_data *data)
 // Si une commande n'existe pas il va essayer d'executer la prochaine
 // Si il n'y a pas d'infile, la commande ne va pas s'executer et tout
 // l'output sera vide et pipe renvoie 1
-bool	parse_and_check(int ac, char **av, char **env, t_data *data)
-{
-	int		fd;
-	char	*path;
-	char	**spath;
-
-	// if (!check_files(av[1], av[ac -1], data))
-	// 	return (false);
-	path = parse_env(env);
-	if (!path)
-		return (perror("pipex"), false);
-	data->path = px_split(path, ':');
-	if (!data->path)
-		return (ft_putstr_fd("pipex: split failed\n", STDERR_FILENO), false);
-	if (!find_exec(av[2], data))
-		return (perror("pipexsss"), free(data->path), false);
-	printf("%s\n", data->cmd);
-	return (true);
-}
