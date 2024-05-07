@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 23:33:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/07 03:05:51 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/07 20:03:22 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,10 @@ void	mario_gaming(t_data *data, int i)
 			exit(EXIT_FAILURE);
 		}
 	}
-	else
-	{
-		close(fd[1]);
-		close(data->hermes);
-		data->hermes = fd[0];
-		wait(NULL);
-	}
+	close(fd[1]);
+	close(data->hermes);
+	data->hermes = fd[0];
+	wait(NULL);
 }
 
 int	get_out(t_data *data)
@@ -53,7 +50,7 @@ int	get_out(t_data *data)
 
 	data->last = open(data->av[data->ac - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (data->last < 0)
-		perror("pipex3");
+		return (perror("pipex3"), 1);
 	id = fork();
 	if (id < 0)
 	{
@@ -75,14 +72,11 @@ int	get_out(t_data *data)
 		{
 			ft_free(data->cmd);
 			ft_free(data->path);
-			exit(EXIT_FAILURE);
+			exit(127);
 		}
 	}
-	else
-	{
-		close(data->hermes);
-		close(data->last);
-		wait(NULL);
-	}
+	close(data->hermes);
+	close(data->last);
+	wait(NULL);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 23:52:25 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/07 02:28:40 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/07 20:05:17 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,21 +50,27 @@ bool	cmd_exe(t_data *data, int i)
 	return (true);
 }
 
-
-void	seek_and_execute(t_data	*data)
+int	seek_and_execute(t_data	*data)
 {
 	int	i;
+	int	exit_code;
 
+	exit_code = 0;
 	i = 2;
 	while (i < data->ac - 2)
 	{
 		data->cmd = ft_split(data->av[i], ' ');
+		if (!data->cmd)
+			return (-1);
 		mario_gaming(data, i);
 		ft_free(data->cmd);
 		i++;
 	}
 	data->cmd = ft_split(data->av[i], ' ');
-	get_out(data);
+	if (!data->cmd)
+		return (-1);
+	exit_code = get_out(data);
 	ft_free(data->cmd);
 	ft_free(data->path);
+	return (exit_code);
 }

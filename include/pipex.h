@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 23:07:37 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/07 01:08:28 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/07 20:00:00 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ bool	find_exec(char *cmd, t_data *data);
 char	**px_split(char const *s, char c);
 
 /******************************seek_and_execute.c*****************************/
-void	seek_and_execute(t_data	*data);
+int		seek_and_execute(t_data	*data);
 bool	cmd_exe(t_data *data, int i);
 
 /******************************setup.c****************************************/
