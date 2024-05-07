@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 23:33:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/07 02:21:34 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/07 03:05:51 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,22 @@ void	mario_gaming(t_data *data, int i)
 	{
 		close(fd[0]);
 		if (dup2(data->hermes, STDIN_FILENO) == -1)
-		{
 			perror("pipex2");
-			close(data->hermes);
-		}
 		close(data->hermes);
 		if(dup2(fd[1], STDOUT_FILENO) == -1)
-		{
 			perror("pipex2");
-			close(fd[1]);
-		}
 		close(fd[1]);
-		cmd_exe(data, i);
+		if (!cmd_exe(data, i))
+		{
+			ft_free(data->cmd);
+			ft_free(data->path);
+			exit(EXIT_FAILURE);
+		}
 	}
 	else
 	{
 		close(fd[1]);
+		close(data->hermes);
 		data->hermes = fd[0];
 		wait(NULL);
 	}
@@ -56,14 +56,27 @@ int	get_out(t_data *data)
 		perror("pipex3");
 	id = fork();
 	if (id < 0)
-		return (perror("pipex4"), close(data->last), -1);
+	{
+		if (data->last > 0)
+			close(data->last);
+		if (data->hermes > 0)
+			close(data->hermes);
+		return (perror("pipex4"), -1);
+	}
 	if (!id)
 	{
-		dup2(data->hermes, STDIN_FILENO);
+		if (dup2(data->hermes, STDIN_FILENO) == -1)
+			perror("pipex5");
 		close(data->hermes);
-		dup2(data->last, STDOUT_FILENO);
+		if (dup2(data->last, STDOUT_FILENO) == -1)
+			perror("pipex6");
 		close(data->last);
-		cmd_exe(data, data->ac - 2);
+		if (!cmd_exe(data, data->ac - 2))
+		{
+			ft_free(data->cmd);
+			ft_free(data->path);
+			exit(EXIT_FAILURE);
+		}
 	}
 	else
 	{

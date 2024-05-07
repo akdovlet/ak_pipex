@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 23:52:25 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/07 02:21:02 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/07 02:28:40 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,17 @@ bool	cmd_exe(t_data *data, int i)
 		{
 			if ((data->first == -1 && i == 2) || \
 					(data->last == -1 && i == data->ac - 2))
-				exit(EXIT_FAILURE);
+				return (false);
 			else
 			{
 				ft_putstr_fd("pipex: command not found\n", STDERR_FILENO);
-				exit(EXIT_FAILURE);
+				return (false);
 			}
 		}
 		else
 		{
 			execve(data->cmd[0], data->cmd, data->env);
-			exit(EXIT_FAILURE);
+			return (false);
 		}
 	}
 	else
@@ -39,11 +39,11 @@ bool	cmd_exe(t_data *data, int i)
 		{
 			if ((data->first == -1 && i == 2) || \
 					(data->last == -1 && i == data->ac - 2))
-				exit(EXIT_FAILURE);
+				return (false);
 			else
 			{
 				ft_putstr_fd("pipex: command not found1\n", STDERR_FILENO);
-				exit(EXIT_FAILURE);
+				return (false);
 			}
 		}
 	}
@@ -66,4 +66,5 @@ void	seek_and_execute(t_data	*data)
 	data->cmd = ft_split(data->av[i], ' ');
 	get_out(data);
 	ft_free(data->cmd);
+	ft_free(data->path);
 }

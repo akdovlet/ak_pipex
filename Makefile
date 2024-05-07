@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/01 13:57:12 by akdovlet          #+#    #+#              #
-#    Updated: 2024/05/07 00:44:24 by akdovlet         ###   ########.fr        #
+#    Updated: 2024/05/07 02:57:56 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ OBJ 	:=	$(patsubst $(SRC_DIR)/%.c, $(BUILD)/%.o, $(SRC))
 DEPS 	:=	$(OBJ:.o=.d)
 
 CC		:=	cc
-CFLAGS	:=	-MMD -MP -Iinclude -I$(LIBDIR)/libft/include -g3
+CFLAGS	:=	-MMD -MP -Iinclude -I$(LIBDIR)/libft/include -g
 
 all: create_dirs $(NAME)
 

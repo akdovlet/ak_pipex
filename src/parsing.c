@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:52:22 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/07 02:06:25 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/07 02:52:25 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ bool	find_exec(char *cmd, t_data *data)
 	}
 	return (false);
 }
-
-
 
 // 	if (!file_access(outfile, F_OK))
 // 	{
