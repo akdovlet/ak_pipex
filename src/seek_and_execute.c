@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 23:52:25 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/07 20:05:17 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/07 22:32:57 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	cmd_exe(t_data *data, int i)
 				return (false);
 			else
 			{
-				ft_putstr_fd("pipex: command not found\n", STDERR_FILENO);
+				ft_putstr_fd("pipex: Command not found\n", STDERR_FILENO);
 				return (false);
 			}
 		}
@@ -42,7 +42,7 @@ bool	cmd_exe(t_data *data, int i)
 				return (false);
 			else
 			{
-				ft_putstr_fd("pipex: command not found1\n", STDERR_FILENO);
+				ft_putstr_fd("pipex: Command not found\n", STDERR_FILENO);
 				return (false);
 			}
 		}
@@ -61,7 +61,7 @@ int	seek_and_execute(t_data	*data)
 	{
 		data->cmd = ft_split(data->av[i], ' ');
 		if (!data->cmd)
-			return (-1);
+			return (1);
 		mario_gaming(data, i);
 		ft_free(data->cmd);
 		i++;

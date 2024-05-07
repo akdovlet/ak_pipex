@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 23:07:20 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/07 20:04:46 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/08 00:13:10 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 // strerror, env, dup, dup2
 // execve, exit, fork, pipe,
 // unlink, wait, waitpid
+// if no path, try access with current dir
+// if no env, try access with /usr/bin/
+// wait as many times as you have cmds
 int main(int ac, char **av, char **env)
 {
 	int		i;
@@ -24,6 +27,11 @@ int main(int ac, char **av, char **env)
 	t_data	data;
 
 	i = 2;
+	if (ac < 4)
+	{
+		ft_putstr_fd("Error: Invalid number of arguments\n", STDERR_FILENO);
+		return (1);
+	}
 	setup(&data, ac, av, env);
 	exit_code = seek_and_execute(&data);
 	return (exit_code);

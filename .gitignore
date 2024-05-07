@@ -1,5 +1,6 @@
 # Test files
 *.txt
+*.sh
 
 # Vscode bullshit
 .vscode
