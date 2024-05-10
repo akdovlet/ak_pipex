@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:52:22 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/08 17:20:31 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/10 19:09:49 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,48 +42,24 @@ char	**parse_env(char **env)
 bool	find_exec(char *cmd, t_data *data)
 {
 	int		i;
-	char	*path;
+	char	*full_path;
 
 	i = 0;
-	path = NULL;
+	full_path = NULL;
 	while (data->path[i])
 	{
-		path = ft_strjoin(data->path[i], cmd);
-		if (!path)
+		full_path = ft_strjoin(data->path[i], cmd);
+		if (!full_path)
 			return (false);
-		if (!access(path, X_OK))
+		if (!access(full_path, X_OK))
 		{
-			execve(path, data->cmd, data->env);
-			free(path);
+			execve(full_path, data->cmd, data->env);
+			free(full_path);
 			exit(EXIT_FAILURE);
 			return (false);
 		}
-		free(path);
+		free(full_path);
 		i++;
 	}
 	return (false);
 }
-
-// 	if (!file_access(outfile, F_OK))
-// 	{
-// 		data->fd[1] = open(outfile, O_CREAT);
-// 		if (data->fd[1] < 0)
-// 			return (close(data->fd[0]), perror("pipex"), false);
-// 	}
-// 	else if (file_access(outfile, R_OK))
-// 	{
-// 		data->fd[1] = open(outfile, O_APPEND);
-// 		if (data->fd[1] < 0)
-// 			return (close(data->fd[0]), perror("pipex"), false);
-// 	}
-// 	else
-// 		return (perror("pipex"), false);
-// 	return (true);
-// }
-
-// Pipe execute toutes les commandes, essaie d'ouvrir tous les fichier
-// Il ne s'arrete pas a la premiere erreur. Va afficher les erreurs par
-// bloc, et va afficher en priorite les erreurs de file.
-// Si une commande n'existe pas il va essayer d'executer la prochaine
-// Si il n'y a pas d'infile, la commande ne va pas s'executer et tout
-// l'output sera vide et pipe renvoie 1

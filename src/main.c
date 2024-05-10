@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 23:07:20 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/08 17:39:08 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/10 19:09:56 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@
 // if no path, try access with current dir
 // if no env, try access with /usr/bin/
 // wait as many times as you have cmds
+// Pipe execute toutes les commandes, essaie d'ouvrir tous les fichier
+// Il ne s'arrete pas a la premiere erreur. Va afficher les erreurs par
+// bloc, et va afficher en priorite les erreurs de file.
+// Si une commande n'existe pas il va essayer d'executer la prochaine
+// Si il n'y a pas d'infile, la commande ne va pas s'executer et tout
+// l'output sera vide et pipe renvoie 1
 int main(int ac, char **av, char **env)
 {
 	int		i;
@@ -33,6 +39,8 @@ int main(int ac, char **av, char **env)
 		return (1);
 	}
 	setup(&data, ac, av, env);
+	if (data.here_doc)
+		return (0);
 	exit_code = seek_and_execute(&data);
 	return (exit_code);
 }

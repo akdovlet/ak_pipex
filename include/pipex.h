@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 23:07:37 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/08 17:20:22 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/10 18:39:17 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct	s_data
 	int		ac;
 	int		hermes;
 	int		fd[2];
+	bool	here_doc;
 }	t_data;
 
 /******************************check_file.c***********************************/

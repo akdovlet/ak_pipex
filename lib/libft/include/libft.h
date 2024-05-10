@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:27:13 by adovleto          #+#    #+#             */
-/*   Updated: 2024/05/01 17:42:46 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/10 15:54:52 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <fcntl.h>
 # include "get_next_line.h"
 # include "ft_printf.h"
+# include "ft_dprintf.h"
 
 typedef struct s_list
 {
