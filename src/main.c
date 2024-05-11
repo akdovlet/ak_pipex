@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 23:07:20 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/10 19:09:56 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/11 14:51:01 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,22 @@ int main(int ac, char **av, char **env)
 	t_data	data;
 
 	i = 2;
-	if (ac < 4)
-	{
-		ft_putstr_fd("Error: Invalid number of arguments\n", STDERR_FILENO);
+	// if (ac < 4)
+	// {
+	// 	ft_putstr_fd("Error: Invalid number of arguments\n", STDERR_FILENO);
+	// 	return (1);
+	// }
+	if (!setup(&data, ac, av, env))
 		return (1);
-	}
-	setup(&data, ac, av, env);
-	if (data.here_doc)
-		return (0);
 	exit_code = seek_and_execute(&data);
 	return (exit_code);
 }
+
+// int main()
+// {
+// 	char **strs;
+	
+// 	strs = ft_split("./", '\0');
+// 	printf("%s\n", strs[0]);
+// 	printf("%s\n", strs[1]);
+// }

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 23:07:37 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/10 18:39:17 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/11 14:46:58 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,5 @@ int		seek_and_execute(t_data	*data);
 bool	cmd_exe(t_data *data, int i);
 
 /******************************setup.c****************************************/
-void	setup(t_data *data, int ac, char **av, char **env);
+bool	setup(t_data *data, int ac, char **av, char **env);
 #endif

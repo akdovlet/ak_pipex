@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:52:22 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/10 19:09:49 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/11 14:34:23 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	**parse_env(char **env)
 			return (px_split(env[i] + 5, ':'));
 		i++;
 	}
-	return (NULL);
+	return (ft_split("./", '\0'));
 }
 
 bool	find_exec(char *cmd, t_data *data)

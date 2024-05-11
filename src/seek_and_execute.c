@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 23:52:25 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/07 22:32:57 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/11 14:42:11 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,8 @@ bool	cmd_exe(t_data *data, int i)
 	{
 		if (access(data->cmd[0], X_OK) == -1)
 		{
-			if ((data->first == -1 && i == 2) || \
-					(data->last == -1 && i == data->ac - 2))
-				return (false);
-			else
-			{
-				ft_putstr_fd("pipex: Command not found\n", STDERR_FILENO);
-				return (false);
-			}
+			ft_dprintf(STDERR_FILENO, "pipex: %s: Command not found\n", data->cmd[0]);
+			return (false);
 		}
 		else
 		{
@@ -37,14 +31,8 @@ bool	cmd_exe(t_data *data, int i)
 	{
 		if (!find_exec(data->cmd[0], data))
 		{
-			if ((data->first == -1 && i == 2) || \
-					(data->last == -1 && i == data->ac - 2))
-				return (false);
-			else
-			{
-				ft_putstr_fd("pipex: Command not found\n", STDERR_FILENO);
-				return (false);
-			}
+			ft_dprintf(STDERR_FILENO, "pipex: %s: Command not found\n", data->cmd[0]);
+			return (false);
 		}
 	}
 	return (true);
