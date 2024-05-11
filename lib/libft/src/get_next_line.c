@@ -6,16 +6,16 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 16:18:24 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/09 17:17:49 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/11 16:52:07 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char *read_to_newline(int fd, char *buffer)
+char	*read_to_newline(int fd, char *buffer)
 {
-	char *tmp;
-	int i;
+	char	*tmp;
+	int		i;
 
 	tmp = NULL;
 	if (buffer[0])
@@ -28,7 +28,7 @@ char *read_to_newline(int fd, char *buffer)
 	{
 		i = read(fd, buffer, BUFFER_SIZE);
 		if (i <= 0)
-			break;
+			break ;
 		buffer[i] = 0;
 		tmp = ak_strjoin(tmp, buffer);
 		if (!tmp)
@@ -37,15 +37,15 @@ char *read_to_newline(int fd, char *buffer)
 	return (tmp);
 }
 
-void clean_static(char *buffer)
+void	clean_static(char *buffer)
 {
-	int j;
-	int i;
+	int	j;
+	int	i;
 
 	j = 0;
 	i = 0;
 	if (!buffer)
-		return;
+		return ;
 	while (buffer[j] != '\n' && buffer[j])
 		j++;
 	if (buffer[j] == '\n')
@@ -55,10 +55,10 @@ void clean_static(char *buffer)
 	buffer[i] = 0;
 }
 
-char *extract_line(char *tmp)
+char	*extract_line(char *tmp)
 {
-	char *line;
-	int i;
+	char	*line;
+	int		i;
 
 	i = 0;
 	if (!tmp)
@@ -82,11 +82,11 @@ char *extract_line(char *tmp)
 	return (line);
 }
 
-char *get_next_line(int fd)
+char	*get_next_line(int fd)
 {
-	static char buffer[BUFFER_SIZE + 1];
-	char *tmp;
-	char *line;
+	static char	buffer[BUFFER_SIZE + 1];
+	char		*tmp;
+	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
