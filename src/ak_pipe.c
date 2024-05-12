@@ -82,7 +82,8 @@ int	ak_pipeout(t_data *data, int i)
 		child_out(data);
 	while (j < data->ac - 3)
 	{
-		waitpid(data->ids[j],&status, 0);
+		if (waitpid(data->ids[j],&status, 0) == -1)
+			perror("waitpid");
 		if (WIFEXITED(status))
 			data->exit_code = WEXITSTATUS(status);
 		j++;
