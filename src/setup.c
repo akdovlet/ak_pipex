@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 23:41:38 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/12 15:18:14 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/12 23:10:00 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ bool	setup(t_data *data, int ac, char **av, char **env)
 	}
 	else
 		data->hermes = data->first;
+	data->exit_code = 0;
+	data->cmd_count = 0;
 	data->last = 0;
 	data->cmd = NULL;
 	data->ac = ac;

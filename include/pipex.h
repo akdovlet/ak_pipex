@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 23:07:37 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/12 14:48:43 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/12 23:53:16 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,18 @@
 
 typedef struct	s_data
 {
+	pid_t	*ids;
 	char	**path;
 	char	**av;
 	char	**env;
 	char	**cmd;
+	int		fd[2];
 	int		first;
 	int		last;
 	int		ac;
 	int		hermes;
-	int		fd[2];
+	int		cmd_count;
+	int		exit_code;
 	bool	here_doc;
 }	t_data;
 
@@ -45,10 +48,11 @@ int	check_file(char *file);
 
 /********************************free.c***************************************/
 void	ft_free(char **str);
+void	clear_all(t_data *data);
 
 /******************************ak_pipe.c*********************************/
 void	ak_pipe(t_data *data, int i);
-int		ak_pipeout(t_data *data);
+int		ak_pipeout(t_data *data, int i);
 
 
 

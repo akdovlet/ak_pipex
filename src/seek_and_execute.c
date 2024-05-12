@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 23:52:25 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/12 19:10:50 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/12 23:53:41 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,24 +41,23 @@ bool	cmd_exe(t_data *data, int i)
 int	seek_and_execute(t_data	*data)
 {
 	int	i;
-	int	exit_code;
 
-	exit_code = 0;
 	i = 2;
+	data->ids = malloc(sizeof(pid_t) * (data->ac - 3));
+	if (!data->ids)
+		return (clear_all(data), exit(EXIT_FAILURE), -1);
 	while (i < data->ac - 2)
 	{
-		data->cmd = ft_split(data->av[i], ' ');
+		data->cmd = ft_multi_split(data->av[i], " \t\n'");
 		if (!data->cmd)
 			return (1);
 		ak_pipe(data, i);
 		ft_free(data->cmd);
 		i++;
 	}
-	data->cmd = ft_split(data->av[i], ' ');
+	data->cmd = ft_multi_split(data->av[i], " '");
 	if (!data->cmd)
 		return (-1);
-	exit_code = ak_pipeout(data);
-	ft_free(data->cmd);
-	ft_free(data->path);
-	return (exit_code);
+	ak_pipeout(data, i);
+	return (data->exit_code);
 }
