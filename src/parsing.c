@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:52:22 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/11 14:34:23 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/12 16:45:13 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ char	**parse_env(char **env)
 
 	i = 0;
 	if (!env[0])
+	{
+		
 		return (px_split(HARDPATH, ':'));
+	}
 	while (env[i])
 	{
 		if (!ft_strncmp("PATH=", env[i], 5))

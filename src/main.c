@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 23:07:20 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/11 16:45:42 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/12 20:09:06 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int main(int ac, char **av, char **env)
 	i = 2;
 	if (ac < 4)
 	{
-		ft_putstr_fd("Error: Invalid number of arguments\n", STDERR_FILENO);
+		ft_dprintf(STDERR_FILENO, "Error: Invalid number of arguments\n");
 		return (1);
 	}
 	if (!setup(&data, ac, av, env))

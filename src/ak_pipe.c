@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mario_gaming.c                                     :+:      :+:    :+:   */
+/*   ak_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 23:33:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/11 20:39:12 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/12 14:42:07 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	mama_mia(int fd[2], t_data *data, int i)
+void	child(int fd[2], t_data *data, int i)
 {
 	close(fd[0]);
 	if (dup2(data->hermes, STDIN_FILENO) == -1)
@@ -25,11 +25,11 @@ void	mama_mia(int fd[2], t_data *data, int i)
 	{
 		ft_free(data->cmd);
 		ft_free(data->path);
-		exit(EXIT_FAILURE);
+		exit(127);
 	}
 }
 
-void	mario_gaming(t_data *data, int i)
+void	ak_pipe(t_data *data, int i)
 {
 	int	fd[2];
 	int	id;
@@ -42,13 +42,13 @@ void	mario_gaming(t_data *data, int i)
 	if (id < 0)
 		return (perror("pipex"));
 	if (!id)
-		mama_mia(fd, data, i);
+		child(fd, data, i);
 	close(fd[1]);
 	close(data->hermes);
 	data->hermes = fd[0];
 }
 
-void	key_peele(t_data *data)
+void	child_out(t_data *data)
 {
 	if (dup2(data->hermes, STDIN_FILENO) == -1)
 		perror("pipex");
@@ -64,13 +64,13 @@ void	key_peele(t_data *data)
 	}
 }	
 
-int	get_out(t_data *data)
+int	ak_pipeout(t_data *data)
 {
 	int	id;
 
 	data->last = open(data->av[data->ac - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (data->last < 0)
-		return (ft_dprintf(STDERR_FILENO, "pipex: %s: Permission denied", data->av[data->ac -1]), 1);
+		return (perror(data->av[data->ac -1]), 1);
 	id = fork();
 	if (id < 0)
 	{
@@ -81,7 +81,7 @@ int	get_out(t_data *data)
 		return (perror("pipex"), -1);
 	}
 	if (!id)
-		key_peele(data);
+		child_out(data);
 	close(data->hermes);
 	close(data->last);
 	wait(NULL);

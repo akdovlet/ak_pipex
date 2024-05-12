@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 23:52:25 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/11 14:42:11 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/12 19:10:50 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 bool	cmd_exe(t_data *data, int i)
 {
-	if (!ft_strncmp(data->cmd[0], "/", 1))
+	if (ft_strchr(data->cmd[0], '/'))
 	{
 		if (access(data->cmd[0], X_OK) == -1)
 		{
-			ft_dprintf(STDERR_FILENO, "pipex: %s: Command not found\n", data->cmd[0]);
+			perror(data->cmd[0]);
 			return (false);
 		}
 		else
@@ -31,7 +31,7 @@ bool	cmd_exe(t_data *data, int i)
 	{
 		if (!find_exec(data->cmd[0], data))
 		{
-			ft_dprintf(STDERR_FILENO, "pipex: %s: Command not found\n", data->cmd[0]);
+			ft_dprintf(STDERR_FILENO, "%s: command not found\n", data->cmd[0]);
 			return (false);
 		}
 	}
@@ -50,14 +50,14 @@ int	seek_and_execute(t_data	*data)
 		data->cmd = ft_split(data->av[i], ' ');
 		if (!data->cmd)
 			return (1);
-		mario_gaming(data, i);
+		ak_pipe(data, i);
 		ft_free(data->cmd);
 		i++;
 	}
 	data->cmd = ft_split(data->av[i], ' ');
 	if (!data->cmd)
 		return (-1);
-	exit_code = get_out(data);
+	exit_code = ak_pipeout(data);
 	ft_free(data->cmd);
 	ft_free(data->path);
 	return (exit_code);

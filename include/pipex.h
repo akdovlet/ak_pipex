@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 23:07:37 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/11 14:46:58 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/12 14:48:43 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ int	check_file(char *file);
 /********************************free.c***************************************/
 void	ft_free(char **str);
 
-/******************************mario_gaming.c*********************************/
-void	mario_gaming(t_data *data, int i);
-int	get_out(t_data *data);
+/******************************ak_pipe.c*********************************/
+void	ak_pipe(t_data *data, int i);
+int		ak_pipeout(t_data *data);
 
 
 
