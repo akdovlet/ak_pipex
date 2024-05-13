@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 23:41:38 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/12 23:10:00 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/13 23:27:42 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ bool	setup(t_data *data, int ac, char **av, char **env)
 		perror("pipex");
 		return (false);
 	}
+	if (!ft_strcmp(av[1], "here_doc"))
+		data->here_doc = true;
+	else
+		data->here_doc = false;
 	data->first = check_file(av[1]);
 	if (data->first == -1)
 	{

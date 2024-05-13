@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_file.c                                       :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/06 23:36:19 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/13 23:02:52 by akdovlet         ###   ########.fr       */
+/*   Created: 2024/05/13 21:40:17 by akdovlet          #+#    #+#             */
+/*   Updated: 2024/05/13 21:41:20 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int	check_file(char *file)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	int	fd;
+	size_t	i;
 
-	if (!file_access(file, R_OK))
-		return(perror(file), -1);
-	else
+	i = 0;
+	while (s1[i] || s2[i])
 	{
-		fd = open(file, O_RDONLY);
-		if (fd < 0)
-			return (perror(file), -1);
+		if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		i++;
 	}
-	return (fd);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 23:52:25 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/13 12:58:44 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/13 23:28:14 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ int	seek_and_execute(t_data	*data)
 {
 	int	i;
 
-	i = 2;
+	if (data->here_doc)
+		i = 3;
+	else
+		i = 2;
 	data->ids = malloc(sizeof(pid_t) * (data->ac - 3));
 	if (!data->ids)
 		return (clear_all(data), exit(EXIT_FAILURE), -1);

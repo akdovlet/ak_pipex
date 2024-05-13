@@ -28,16 +28,45 @@ void	child(int fd[2], t_data *data, int i)
 		exit(127);
 	}
 }
+void	dr_here(int fd[2], t_data *data, int i)
+{
+	close(fd[1]);
+	dup2(fd[0], STDIN_FILENO);
+	cmd_exe(data, i);
+	clear_all(data);
+	exit(127);
+}
 
 void	ak_pipe(t_data *data, int i)
 {
 	int	fd[2];
+	char	*line;
 
 	if (data->first == -1 && i == 2)
 		return ;
 	if (pipe(fd) == -1)
 		return (perror("pipex"));
 	data->ids[i - 2] = fork();
+	if (data->here_doc && i == 3)
+	{
+		if (!data->ids[i - 2])
+			dr_here(fd, data, i);
+		close(fd[0]);
+		data->hermes = fd[0];
+		while (1)
+		{
+			line = get_next_line(STDIN_FILENO);
+			if (!line || !ft_strncmp(line, data->av[2], ft_strlen(line) - 1))
+			{
+				free(line);
+				break ;
+			}
+			write(fd[1], line, ft_strlen(line));
+			free(line);
+		}
+		close(fd[1]);
+		return ;
+	}
 	if (data->ids[i - 2] < 0)
 		return (perror("pipex"));
 	if (!data->ids[i - 2])
@@ -46,6 +75,7 @@ void	ak_pipe(t_data *data, int i)
 	close(data->hermes);
 	data->hermes = fd[0];
 }
+
 
 void	child_out(t_data *data)
 {
@@ -61,7 +91,7 @@ void	child_out(t_data *data)
 		free(data->ids);
 		exit(127);
 	}
-}	
+}
 
 int	ak_pipeout(t_data *data, int i)
 {
