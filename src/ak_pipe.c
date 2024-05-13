@@ -23,8 +23,8 @@ void	child(int fd[2], t_data *data, int i)
 	close(fd[1]);
 	if (!cmd_exe(data, i))
 	{
-		ft_free(data->cmd);
-		ft_free(data->path);
+		clear_all(data);
+		free(data->ids);
 		exit(127);
 	}
 }
@@ -57,8 +57,8 @@ void	child_out(t_data *data)
 	close(data->last);
 	if (!cmd_exe(data, data->ac - 2))
 	{
-		ft_free(data->cmd);
-		ft_free(data->path);
+		clear_all(data);
+		free(data->ids);
 		exit(127);
 	}
 }	

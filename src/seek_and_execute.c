@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 23:52:25 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/12 23:53:41 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/13 12:58:44 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,6 @@ int	seek_and_execute(t_data	*data)
 	if (!data->cmd)
 		return (-1);
 	ak_pipeout(data, i);
+	free(data->ids);
 	return (data->exit_code);
 }

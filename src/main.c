@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 23:07:20 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/12 23:53:32 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/13 12:57:42 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int main(int ac, char **av, char **env)
 	if (!setup(&data, ac, av, env))
 		return (1);
 	seek_and_execute(&data);
+	clear_all(&data);
 	return (data.exit_code);
 }
 
