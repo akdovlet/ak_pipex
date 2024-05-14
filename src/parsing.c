@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:52:22 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/12 23:37:53 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/13 17:41:36 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	**parse_env(char **env)
 	return (ft_split("./", '\0'));
 }
 
-bool	find_exec(char *cmd, t_data *data)
+void	find_exec(char *cmd, t_data *data)
 {
 	int		i;
 	char	*full_path;
@@ -53,16 +53,14 @@ bool	find_exec(char *cmd, t_data *data)
 	{
 		full_path = ft_strjoin(data->path[i], cmd);
 		if (!full_path)
-			return (false);
+			return (clear_exit(data, EXIT_FAILURE));
 		if (!access(full_path, X_OK))
 		{
 			execve(full_path, data->cmd, data->env);
 			free(full_path);
-			exit(EXIT_FAILURE);
-			return (false);
+			clear_exit(data, 127);
 		}
 		free(full_path);
 		i++;
 	}
-	return (false);
 }

@@ -16,17 +16,12 @@ void	child(int fd[2], t_data *data, int i)
 {
 	close(fd[0]);
 	if (dup2(data->hermes, STDIN_FILENO) == -1)
-		perror("pipex");
+		return (perror("pipex"), clear_exit(data, EXIT_FAILURE));
 	close(data->hermes);
 	if(dup2(fd[1], STDOUT_FILENO) == -1)
-		perror("pipex");
+		return (perror("pipex"), clear_exit(data, EXIT_FAILURE));
 	close(fd[1]);
-	if (!cmd_exe(data, i))
-	{
-		clear_all(data);
-		free(data->ids);
-		exit(127);
-	}
+	cmd_exe(data, i);
 }
 
 void	ak_pipe(t_data *data, int i)
@@ -36,10 +31,10 @@ void	ak_pipe(t_data *data, int i)
 	if (data->first == -1 && i == 2)
 		return ;
 	if (pipe(fd) == -1)
-		return (perror("pipex"));
+		return (perror("pipex"), clear_exit(data, EXIT_FAILURE));
 	data->ids[i - 2] = fork();
 	if (data->ids[i - 2] < 0)
-		return (perror("pipex"));
+		return (perror("pipex"), clear_exit(data, EXIT_FAILURE));
 	if (!data->ids[i - 2])
 		child(fd, data, i);
 	close(fd[1]);
@@ -55,15 +50,10 @@ void	child_out(t_data *data)
 	if (dup2(data->last, STDOUT_FILENO) == -1)
 		perror("pipex");
 	close(data->last);
-	if (!cmd_exe(data, data->ac - 2))
-	{
-		clear_all(data);
-		free(data->ids);
-		exit(127);
-	}
+	cmd_exe(data, data->ac - 2);
 }	
 
-int	ak_pipeout(t_data *data, int i)
+void	ak_pipeout(t_data *data, int i)
 {
 	int status;
 	int	j;
@@ -71,15 +61,17 @@ int	ak_pipeout(t_data *data, int i)
 	j = 0;
 	data->last = open(data->av[data->ac - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (data->last < 0)
-		return (perror(data->av[data->ac -1]), 1);
+		return (perror(data->av[data->ac -1]), clear_all(data), exit(EXIT_FAILURE));
 	data->ids[i - 2] = fork();
 	if (data->ids[i - 2] < 0)
 	{
 		clear_all(data);
-		return (perror("pipex"), -1);
+		return (perror("pipex"));
 	}
 	if (!data->ids[i - 2])
 		child_out(data);
+	close(data->first);
+	close(data->hermes);
 	while (j < data->ac - 3)
 	{
 		if (waitpid(data->ids[j],&status, 0) == -1)
@@ -88,5 +80,4 @@ int	ak_pipeout(t_data *data, int i)
 			data->exit_code = WEXITSTATUS(status);
 		j++;
 	}
-	return (0);
 }

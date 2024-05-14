@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 23:41:38 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/12 23:10:00 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/13 17:03:28 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ bool	setup(t_data *data, int ac, char **av, char **env)
 	{
 		data->hermes = open("/dev/null", O_RDONLY);
 		if (data->hermes < 0)
-			return (perror(av[1]), false);
+			return (perror(av[1]), ft_free(data->path), false);
 	}
 	else
 		data->hermes = data->first;
-	data->exit_code = 0;
-	data->cmd_count = 0;
-	data->last = 0;
+	data->ids = NULL;
 	data->cmd = NULL;
+	data->exit_code = 0;
+	data->last = 0;
 	data->ac = ac;
 	data->av = av;
 	data->env = env;

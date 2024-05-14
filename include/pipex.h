@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 23:07:37 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/12 23:53:16 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/13 17:47:22 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,30 +44,30 @@ typedef struct	s_data
 }	t_data;
 
 /******************************check_file.c***********************************/
-int	check_file(char *file);
+int		check_file(char *file);
 
 /********************************free.c***************************************/
 void	ft_free(char **str);
 void	clear_all(t_data *data);
+void	clear_exit(t_data *data, int exit_code);
 
 /******************************ak_pipe.c*********************************/
 void	ak_pipe(t_data *data, int i);
-int		ak_pipeout(t_data *data, int i);
+void	ak_pipeout(t_data *data, int i);
 
 
 
 char	**parse_env(char **env);
 bool	file_access(char *file, int check);
-bool	parse_and_check(int ac, char **av, char **env, t_data *data);
-bool	find_exec(char *cmd, t_data *data);
+void	find_exec(char *cmd, t_data *data);
 
 /******************************check_file.c***********************************/
 
 char	**px_split(char const *s, char c);
 
 /******************************seek_and_execute.c*****************************/
-int		seek_and_execute(t_data	*data);
-bool	cmd_exe(t_data *data, int i);
+void	seek_and_execute(t_data	*data);
+void	cmd_exe(t_data *data, int i);
 
 /******************************setup.c****************************************/
 bool	setup(t_data *data, int ac, char **av, char **env);
