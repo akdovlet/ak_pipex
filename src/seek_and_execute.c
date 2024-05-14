@@ -6,14 +6,45 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 23:52:25 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/13 17:47:47 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/14 20:29:55 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+void	find_exec(char *cmd, t_data *data)
+{
+	int		i;
+	char	*full_path;
+
+	i = 0;
+	full_path = NULL;
+	while (data->path[i])
+	{
+		full_path = ft_strjoin(data->path[i], cmd);
+		if (!full_path)
+			return (clear_exit(data, EXIT_FAILURE));
+		if (!access(full_path, X_OK))
+		{
+			execve(full_path, data->cmd, data->env);
+			free(full_path);
+			perror("pipex");
+			clear_exit(data, 127);
+		}
+		free(full_path);
+		i++;
+	}
+	ft_dprintf(STDERR_FILENO, "pipex: %s: command not found\n", data->cmd[0]);
+	clear_exit(data, 127);
+}
+
 void	cmd_exe(t_data *data, int i)
 {
+	if (!data->cmd[0])
+	{
+		ft_dprintf(STDERR_FILENO, "%s: command not found\n", data->cmd[0]);
+		clear_exit(data, 127);
+	}
 	if (ft_strchr(data->cmd[0], '/'))
 	{
 		if (access(data->cmd[0], X_OK) == -1)
@@ -24,8 +55,8 @@ void	cmd_exe(t_data *data, int i)
 		else
 		{
 			execve(data->cmd[0], data->cmd, data->env);
-			perror("execve");
-			clear_exit(data, EXIT_FAILURE);
+			ft_dprintf(STDERR_FILENO, "%s: command not found\n", data->cmd[0]);
+			clear_exit(data, 127);
 		}
 	}
 	else
@@ -38,11 +69,12 @@ void	seek_and_execute(t_data	*data)
 
 	i = 2;
 	data->ids = malloc(sizeof(pid_t) * (data->ac - 3));
+	printf("size is: %d\n", data->ac - 3);
 	if (!data->ids)
 		return (clear_exit(data, EXIT_FAILURE));
 	while (i < data->ac - 2)
 	{
-		data->cmd = ft_multi_split(data->av[i], " \t\n'");
+		data->cmd = ft_multi_split(data->av[i], " '");
 		if (!data->cmd)
 			return (clear_exit(data, EXIT_FAILURE));
 		ak_pipe(data, i);

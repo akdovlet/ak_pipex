@@ -6,11 +6,12 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 22:07:22 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/01/14 16:32:59 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/14 18:54:46 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 static char	**ft_splitter(char *str, char *sep, int *tab, int word_count)
 {
@@ -46,9 +47,10 @@ char	**ft_multi_split(char *str, char *sep)
 	int		word_count;
 	char	**strs;
 
+	tab = NULL;
 	word_count = ak_countword(str, sep, &tab);
 	if (word_count == -1)
-		return (NULL);
+		return (free(tab), NULL);
 	strs = ft_splitter(str, sep, tab, word_count);
 	free(tab);
 	return (strs);

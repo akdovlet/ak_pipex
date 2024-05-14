@@ -32,6 +32,7 @@ void	ak_pipe(t_data *data, int i)
 		return ;
 	if (pipe(fd) == -1)
 		return (perror("pipex"), clear_exit(data, EXIT_FAILURE));
+	printf("i is: %d\n", i);
 	data->ids[i - 2] = fork();
 	if (data->ids[i - 2] < 0)
 		return (perror("pipex"), clear_exit(data, EXIT_FAILURE));
@@ -45,10 +46,10 @@ void	ak_pipe(t_data *data, int i)
 void	child_out(t_data *data)
 {
 	if (dup2(data->hermes, STDIN_FILENO) == -1)
-		perror("pipex");
+		clear_exit(data, EXIT_FAILURE);
 	close(data->hermes);
 	if (dup2(data->last, STDOUT_FILENO) == -1)
-		perror("pipex");
+		clear_exit(data, EXIT_FAILURE);
 	close(data->last);
 	cmd_exe(data, data->ac - 2);
 }	
@@ -59,25 +60,24 @@ void	ak_pipeout(t_data *data, int i)
 	int	j;
 
 	j = 0;
+	status = 0;
 	data->last = open(data->av[data->ac - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (data->last < 0)
-		return (perror(data->av[data->ac -1]), clear_all(data), exit(EXIT_FAILURE));
+		return (perror(data->av[data->ac -1]), clear_exit(data, EXIT_FAILURE));
 	data->ids[i - 2] = fork();
+	printf("last i is: %d\n", i);
 	if (data->ids[i - 2] < 0)
-	{
-		clear_all(data);
-		return (perror("pipex"));
-	}
+		return (perror("pipex"), clear_exit(data, EXIT_FAILURE));
 	if (!data->ids[i - 2])
 		child_out(data);
-	close(data->first);
 	close(data->hermes);
 	while (j < data->ac - 3)
 	{
-		if (waitpid(data->ids[j],&status, 0) == -1)
-			perror("waitpid");
-		if (WIFEXITED(status))
-			data->exit_code = WEXITSTATUS(status);
+		printf("ids value is: %d\n", data->ids[j]);
+		waitpid(data->ids[j],&status, 0);
+		printf("status is: %d\n", status);
+		data->exit_code = WEXITSTATUS(status);
+		printf("exit_code is: %d\n", data->exit_code);
 		j++;
 	}
 }

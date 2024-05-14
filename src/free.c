@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 00:41:28 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/13 17:02:02 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/14 19:47:09 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ void	clear_all(t_data *data)
 	data->ids = NULL;
 	if (data->first > 0)
 		close(data->first);
+	data->first = 0;
+	if (data->hermes > 0)
+		close(data->hermes);
+	data->hermes = 0;
 	if (data->last > 0)
 		close(data->last);
 }
@@ -29,6 +33,8 @@ void	ft_free(char **str)
 	int	i;
 
 	i = 0;
+	if (!str)
+		return ;
 	while (str[i])
 	{
 		free(str[i]);
