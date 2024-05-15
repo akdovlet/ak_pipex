@@ -6,12 +6,11 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:50:00 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/04/25 20:08:57 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/15 03:13:40 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include "libft.h"
 
 static int	px_countword(char const *str, char c)
 {

@@ -6,23 +6,11 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 00:17:44 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/15 02:06:07 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/15 03:36:38 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-int	ft_strcmp(char *s1, char *s2)
-{
-	while (*s1 && *s2)
-	{
-		if (*s1 != *s2)
-			return (*s1 - *s2);
-		s1++;
-		s2++;
-	}
-	return (*s1 - *s2);
-}
 
 void	dr_dre(t_data *data, int *fd)
 {
@@ -43,6 +31,7 @@ void	dr_dre(t_data *data, int *fd)
 		write(fd[1], line, ft_strlen(line));
 		free(line);
 	}
+	close(fd[1]);
 	exit(EXIT_SUCCESS);
 }
 

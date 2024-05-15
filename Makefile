@@ -6,21 +6,22 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/01 13:57:12 by akdovlet          #+#    #+#              #
-#    Updated: 2024/05/15 00:48:39 by akdovlet         ###   ########.fr        #
+#    Updated: 2024/05/15 03:37:02 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	pipex
-LIBDIR	=	lib
-LIBFT	= 	$(LIBDIR)/libft/libft.a
+NAME	:=	pipex
+LIBDIR	:=	lib
+LIBFT	:= 	$(LIBDIR)/libft/libft.a
 
-SRC		:=	check_file.c	\
-			free.c			\
-			main.c			\
-			dr_here.c		\
-			ak_pipe.c	\
-			parsing.c		\
-			px_split.c		\
+SRC		:=	ak_pipe.c			\
+			ak_pipeout.c		\
+			check_file.c		\
+			dr_here.c			\
+			env_access.c		\
+			free_exit.c				\
+			main.c				\
+			px_split.c			\
 			seek_and_execute.c	\
 			setup.c
 SRC_DIR	:=	src

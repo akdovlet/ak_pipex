@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 23:07:37 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/15 01:32:15 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/15 03:35:50 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,37 +43,51 @@ typedef struct	s_data
 	int		here_doc;
 }	t_data;
 
+/******************************ak_pipe.c**************************************/
+
+// Child function for every command except for the last one, executes cmd
+void	child(int fd[2], t_data *data, int i);
+// Will pipe and fork making every cmd communicate, calls child
+void	ak_pipe(t_data *data, int i);
+
+/******************************ak_pipeout.c***********************************/
+
+// Child function for the last cmd
+void	child_out(t_data *data);
+// Will fork the last cmd and will redirect it to outfile
+void	ak_pipeout(t_data *data, int i);
+
 /******************************check_file.c***********************************/
+
+// Checks for reading rights on a given file, opens it if ok
 int		check_file(char *file);
 
+/******************************dr_here.c**************************************/
 
-
+//	Forgot about Dre
+void	dr_dre(t_data *data, int *fd);
+// 
 void	dr_here(t_data *data);
-int		ft_strcmp(char *s1, char *s2);
 
-/********************************free.c***************************************/
+/********************************env_access.c**********************************/
+char	**parse_env(char **env);
+bool	file_access(char *file, int check);
+
+/********************************free_exit.c***********************************/
 void	ft_free(char **str);
 void	clear_all(t_data *data);
 void	clear_exit(t_data *data, int exit_code);
 
-/******************************ak_pipe.c*********************************/
-void	ak_pipe(t_data *data, int i);
-void	ak_pipeout(t_data *data, int i);
-
-
-
-char	**parse_env(char **env);
-bool	file_access(char *file, int check);
-void	find_exec(char *cmd, t_data *data);
-
-/******************************check_file.c***********************************/
+/******************************px_split.c**************************************/
 
 char	**px_split(char const *s, char c);
 
 /******************************seek_and_execute.c*****************************/
-void	seek_and_execute(t_data	*data);
 void	cmd_exe(t_data *data);
+void	find_exec(char *cmd, t_data *data);
+void	seek_and_execute(t_data	*data);
 
 /******************************setup.c****************************************/
+void	infile_setup(t_data *data, char **av);
 bool	setup(t_data *data, int ac, char **av, char **env);
 #endif

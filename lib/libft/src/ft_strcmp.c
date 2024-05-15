@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_file.c                                       :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/06 23:36:19 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/15 02:57:09 by akdovlet         ###   ########.fr       */
+/*   Created: 2024/05/15 03:06:59 by akdovlet          #+#    #+#             */
+/*   Updated: 2024/05/15 03:07:05 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int	check_file(char *file)
+int	ft_strcmp(char *s1, char *s2)
 {
-	int	fd;
-
-	if (!file_access(file, R_OK))
-		return (perror(file), -1);
-	else
+	while (*s1 && *s2)
 	{
-		fd = open(file, O_RDONLY);
-		if (fd < 0)
-			return (perror(file), -1);
+		if (*s1 != *s2)
+			return (*s1 - *s2);
+		s1++;
+		s2++;
 	}
-	return (fd);
+	return (*s1 - *s2);
 }

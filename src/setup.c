@@ -6,13 +6,13 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 23:41:38 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/15 01:06:15 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/15 03:15:19 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void infile_setup(t_data *data, char **av)
+void	infile_setup(t_data *data, char **av)
 {
 	data->here_doc = 0;
 	data->first = check_file(av[1]);
