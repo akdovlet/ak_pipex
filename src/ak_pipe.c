@@ -16,10 +16,10 @@ void	child(int fd[2], t_data *data, int i)
 {
 	close(fd[0]);
 	if (dup2(data->hermes, STDIN_FILENO) == -1)
-		return (perror("pipex1"), clear_exit(data, EXIT_FAILURE));
+		return (perror("pipex"), clear_exit(data, EXIT_FAILURE));
 	close(data->hermes);
 	if (dup2(fd[1], STDOUT_FILENO) == -1)
-		return (perror("pipex2"), clear_exit(data, EXIT_FAILURE));
+		return (perror("pipex"), clear_exit(data, EXIT_FAILURE));
 	close(fd[1]);
 	cmd_exe(data);
 }
@@ -31,10 +31,10 @@ void	ak_pipe(t_data *data, int i)
 	if (data->first == -1 && i == 2)
 		return ;
 	if (pipe(fd) == -1)
-		return (perror("pipex3"), clear_exit(data, EXIT_FAILURE));
+		return (perror("pipex"), clear_exit(data, EXIT_FAILURE));
 	data->ids[i - (2 + data->here_doc)] = fork();
 	if (data->ids[i - (2 + data->here_doc)] < 0)
-		return (perror("pipex4"), clear_exit(data, EXIT_FAILURE));
+		return (perror("pipex"), clear_exit(data, EXIT_FAILURE));
 	if (!data->ids[i - (2 + data->here_doc)])
 		child(fd, data, i);
 	close(fd[1]);
