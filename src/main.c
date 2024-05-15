@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 23:07:20 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/13 17:36:23 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/14 23:14:01 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,3 @@ int main(int ac, char **av, char **env)
 	clear_all(&data);
 	return (data.exit_code);
 }
-
-// int main()
-// {
-// 	char **strs;
-	
-// 	strs = ft_split("./", '\0');
-// 	printf("%s\n", strs[0]);
-// 	printf("%s\n", strs[1]);
-// }

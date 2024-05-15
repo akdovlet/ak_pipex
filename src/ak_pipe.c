@@ -16,12 +16,12 @@ void	child(int fd[2], t_data *data, int i)
 {
 	close(fd[0]);
 	if (dup2(data->hermes, STDIN_FILENO) == -1)
-		return (perror("pipex"), clear_exit(data, EXIT_FAILURE));
+		return (perror("pipex1"), clear_exit(data, EXIT_FAILURE));
 	close(data->hermes);
 	if(dup2(fd[1], STDOUT_FILENO) == -1)
-		return (perror("pipex"), clear_exit(data, EXIT_FAILURE));
+		return (perror("pipex2"), clear_exit(data, EXIT_FAILURE));
 	close(fd[1]);
-	cmd_exe(data, i);
+	cmd_exe(data);
 }
 
 void	ak_pipe(t_data *data, int i)
@@ -31,12 +31,11 @@ void	ak_pipe(t_data *data, int i)
 	if (data->first == -1 && i == 2)
 		return ;
 	if (pipe(fd) == -1)
-		return (perror("pipex"), clear_exit(data, EXIT_FAILURE));
-	printf("i is: %d\n", i);
-	data->ids[i - 2] = fork();
-	if (data->ids[i - 2] < 0)
-		return (perror("pipex"), clear_exit(data, EXIT_FAILURE));
-	if (!data->ids[i - 2])
+		return (perror("pipex3"), clear_exit(data, EXIT_FAILURE));
+	data->ids[i - (2 + data->here_doc)] = fork();
+	if (data->ids[i - (2 + data->here_doc)] < 0)
+		return (perror("pipex4"), clear_exit(data, EXIT_FAILURE));
+	if (!data->ids[i - (2 + data->here_doc)])
 		child(fd, data, i);
 	close(fd[1]);
 	close(data->hermes);
@@ -51,7 +50,7 @@ void	child_out(t_data *data)
 	if (dup2(data->last, STDOUT_FILENO) == -1)
 		clear_exit(data, EXIT_FAILURE);
 	close(data->last);
-	cmd_exe(data, data->ac - 2);
+	cmd_exe(data);
 }	
 
 void	ak_pipeout(t_data *data, int i)
@@ -64,20 +63,16 @@ void	ak_pipeout(t_data *data, int i)
 	data->last = open(data->av[data->ac - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (data->last < 0)
 		return (perror(data->av[data->ac -1]), clear_exit(data, EXIT_FAILURE));
-	data->ids[i - 2] = fork();
-	printf("last i is: %d\n", i);
-	if (data->ids[i - 2] < 0)
+	data->ids[i - (2 + data->here_doc)] = fork();
+	if (data->ids[i - (2 + data->here_doc)] < 0)
 		return (perror("pipex"), clear_exit(data, EXIT_FAILURE));
-	if (!data->ids[i - 2])
+	if (!data->ids[i - (2 + data->here_doc)])
 		child_out(data);
 	close(data->hermes);
 	while (j < data->ac - 3)
 	{
-		printf("ids value is: %d\n", data->ids[j]);
 		waitpid(data->ids[j],&status, 0);
-		printf("status is: %d\n", status);
 		data->exit_code = WEXITSTATUS(status);
-		printf("exit_code is: %d\n", data->exit_code);
 		j++;
 	}
 }

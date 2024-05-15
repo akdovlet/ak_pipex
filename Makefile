@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/01 13:57:12 by akdovlet          #+#    #+#              #
-#    Updated: 2024/05/12 15:41:16 by akdovlet         ###   ########.fr        #
+#    Updated: 2024/05/15 00:48:39 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ LIBFT	= 	$(LIBDIR)/libft/libft.a
 SRC		:=	check_file.c	\
 			free.c			\
 			main.c			\
+			dr_here.c		\
 			ak_pipe.c	\
 			parsing.c		\
 			px_split.c		\

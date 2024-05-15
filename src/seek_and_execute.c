@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 23:52:25 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/14 20:29:55 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/15 01:49:59 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	find_exec(char *cmd, t_data *data)
 	clear_exit(data, 127);
 }
 
-void	cmd_exe(t_data *data, int i)
+void	cmd_exe(t_data *data)
 {
 	if (!data->cmd[0])
 	{
@@ -69,9 +69,13 @@ void	seek_and_execute(t_data	*data)
 
 	i = 2;
 	data->ids = malloc(sizeof(pid_t) * (data->ac - 3));
-	printf("size is: %d\n", data->ac - 3);
 	if (!data->ids)
 		return (clear_exit(data, EXIT_FAILURE));
+	if (data->here_doc)
+	{
+		i = 3;
+		dr_here(data);
+	}
 	while (i < data->ac - 2)
 	{
 		data->cmd = ft_multi_split(data->av[i], " '");
@@ -85,6 +89,4 @@ void	seek_and_execute(t_data	*data)
 	if (!data->cmd)
 		return (clear_exit(data, EXIT_FAILURE));
 	ak_pipeout(data, i);
-	free(data->ids);
-	data->ids = NULL;
 }
