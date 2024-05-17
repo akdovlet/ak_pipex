@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/01 13:57:12 by akdovlet          #+#    #+#              #
-#    Updated: 2024/05/15 03:37:02 by akdovlet         ###   ########.fr        #
+#    Updated: 2024/05/17 03:44:37 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRC		:=	ak_pipe.c			\
 			check_file.c		\
 			dr_here.c			\
 			env_access.c		\
-			free_exit.c				\
+			free_exit.c			\
 			main.c				\
 			px_split.c			\
 			seek_and_execute.c	\
@@ -35,25 +35,27 @@ CFLAGS	:=	-MMD -MP -Iinclude -I$(LIBDIR)/libft/include -g
 
 all: create_dirs $(NAME)
 
+create_dirs: $(BUILD)
+
+$(BUILD):
+	@if [ ! -d $(BUILD) ]; then mkdir $(BUILD); fi
+
 $(NAME): $(OBJ) $(LIBFT)
 	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
 
 $(BUILD)/%.o: $(SRC_DIR)/%.c
-	@printf "\033[1;32%sm\tCompiled: $<\033[0m\n";
 	@$(CC) $(CFLAGS) -c $< -o $@
-
-create_dirs:
-	@if [ ! -d "$(BUILD)" ]; then mkdir $(BUILD); fi
+	@printf "\033[1;32%sm\tCompiled: $<\033[0m\n";
 
 $(LIBFT):
-	@$(MAKE) -C $(LIBDIR)/libft
+	@$(MAKE) --no-print-directory -C  $(LIBDIR)/libft
 
 clean:
-	@if [ -d "$(BUILD)" ]; then $(RM) -rf $(BUILD) && echo "\033[1;31m\tDeleted: $(NAME) $(BUILD)\033[0m"; fi
+	@if [ -d $(BUILD) ]; then $(RM) -rf $(BUILD) && echo "\033[1;31m\tDeleted: $(NAME) $(BUILD)\033[0m"; fi
 	@$(MAKE) --no-print-directory clean -C $(LIBDIR)/libft
 
 fclean: clean
-	@if [ -f "$(NAME)" ]; then $(RM) -rf $(NAME) && echo "\033[1;31m\tDeleted: $(NAME)\033[0m"; fi
+	@if [ -f $(NAME) ]; then $(RM) -rf $(NAME) && echo "\033[1;31m\tDeleted: $(NAME)\033[0m"; fi
 	@$(MAKE) --no-print-directory fclean -C $(LIBDIR)/libft
 
 re: fclean all

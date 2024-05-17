@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/15 16:05:42 by akdovlet          #+#    #+#              #
-#    Updated: 2024/05/15 03:08:03 by akdovlet         ###   ########.fr        #
+#    Updated: 2024/05/16 22:40:48 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,20 +81,25 @@ SRC		:=	ak_countword.c			\
 			printf_x_handler.c
 SRC		:=	$(addprefix $(SRCDIR)/, $(SRC))
 OBJDIR	:= .build
-OBJS	:=	$(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRC))
-DEPS	:=	$(OBJS:.o=.d)
+OBJ		:=	$(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRC))
+DEPS	:=	$(OBJ:.o=.d)
 
 CC		:=	cc
 CFLAGS	:=	-Wall -Werror -Wextra -MMD -MP -Iinclude
 
 all: create_dirs $(NAME)
 
-create_dirs:
+create_dirs: $(OBJDIR)
+
+$(OBJDIR):
 	@if [ ! -d "$(OBJDIR)" ]; then mkdir $(OBJDIR); fi
 
+$(NAME): $(OBJ)
+	@ar rc $(NAME) $(OBJ)
+
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
-		@printf "\033[0;32%sm\tCompiling: $<\033[0m\r";
 		@$(CC) $(CFLAGS) -c $< -o $@;
+		@printf "\033[0;32%sm\tCompiled: $<\033[0m\r";
 
 clean:
 	@if [ -d "$(OBJDIR)" ]; then $(RM) -rf $(OBJDIR) && echo "\033[1;31m\tDeleted: libft $(OBJDIR)\033[0m"; fi
@@ -104,8 +109,6 @@ fclean: clean
 
 re: fclean all
 
-$(NAME): $(OBJS)
-	@ar rc $(NAME) $(OBJS)
 
 -include $(DEPS)
 

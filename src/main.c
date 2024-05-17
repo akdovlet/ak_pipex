@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 23:07:20 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/15 02:57:25 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/16 20:02:27 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 // Si une commande n'existe pas il va essayer d'executer la prochaine
 // Si il n'y a pas d'infile, la commande ne va pas s'executer et tout
 // l'output sera vide et pipe renvoie 1
+// valgrind  --leak-check=full --show-leak-kinds=all --trace-children=yes  --track-fds=yes
 int	main(int ac, char **av, char **env)
 {
 	int		exit_code;

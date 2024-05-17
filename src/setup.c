@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 23:41:38 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/15 03:15:19 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/16 21:33:48 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,11 @@ bool	setup(t_data *data, int ac, char **av, char **env)
 	if (!data->path)
 		return (perror("pipex"), false);
 	if (!ft_strcmp("here_doc", av[1]))
+	{
 		data->here_doc = 1;
+		data->first = 0;
+		data->hermes = 0;
+	}
 	else
 		infile_setup(data, av);
 	data->ids = NULL;

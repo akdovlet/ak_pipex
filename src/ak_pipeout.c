@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 03:05:49 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/15 05:06:13 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/16 21:31:09 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	ak_pipeout(t_data *data, int i)
 	if (!data->ids[i - (2 + data->here_doc)])
 		child_out(data);
 	close(data->hermes);
-	while (j < data->ac - 3)
+	data->hermes = 0;
+	while (j < data->ac - (3 + data->here_doc))
 	{
 		waitpid(data->ids[j], &status, 0);
 		data->exit_code = WEXITSTATUS(status);

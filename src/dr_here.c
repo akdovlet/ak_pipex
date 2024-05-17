@@ -6,11 +6,25 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 00:17:44 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/15 03:36:38 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/16 21:30:15 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+bool	delimiter_cmp(char *s1, char *s2)
+{
+	int	i;
+
+	i = -1;
+	while ((s1[++i] || s2[i]) && s2[i] != '\n')
+		if (s1[i] != s2[i])
+			return (false);
+	if (s2[i] == '\n' && s2[i + 1] == '\0')
+		if (s1[i] == '\0')
+			return (true);
+	return (false);
+}
 
 void	dr_dre(t_data *data, int *fd)
 {
@@ -23,7 +37,7 @@ void	dr_dre(t_data *data, int *fd)
 		line = get_next_line(STDIN_FILENO);
 		if (!line)
 			clear_exit(data, EXIT_FAILURE);
-		if (!ft_strncmp(line, data->av[2], ft_strlen(data->av[2])))
+		if (delimiter_cmp(data->av[2], line))
 		{
 			free(line);
 			break ;
@@ -32,7 +46,7 @@ void	dr_dre(t_data *data, int *fd)
 		free(line);
 	}
 	close(fd[1]);
-	exit(EXIT_SUCCESS);
+	clear_exit(data, EXIT_SUCCESS);
 }
 
 void	dr_here(t_data *data)
