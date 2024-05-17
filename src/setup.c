@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 23:41:38 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/16 21:33:48 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/17 18:22:35 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	infile_setup(t_data *data, char **av)
 {
-	data->here_doc = 0;
 	data->first = check_file(av[1]);
 	if (data->first == -1)
 	{
@@ -28,23 +27,20 @@ void	infile_setup(t_data *data, char **av)
 
 bool	setup(t_data *data, int ac, char **av, char **env)
 {
+	*data = (t_data) {0};
+	data->ac = ac;
+	data->av = av;
+	data->env = env;
+	data->output_file = av[ac - 1];
+	data->commands = &av[2];
+	data->here_doc_delimiter = NULL;
 	data->path = parse_env(env);
 	if (!data->path)
 		return (perror("pipex"), false);
 	if (!ft_strcmp("here_doc", av[1]))
-	{
-		data->here_doc = 1;
-		data->first = 0;
-		data->hermes = 0;
-	}
+		data->here_doc_delimiter = av[2];
 	else
 		infile_setup(data, av);
-	data->ids = NULL;
-	data->cmd = NULL;
-	data->exit_code = 0;
-	data->last = 0;
-	data->ac = ac;
-	data->av = av;
-	data->env = env;
+	data->command_count = ac - (data->here_doc_delimiter != NULL);
 	return (true);
 }

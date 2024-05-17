@@ -12,7 +12,7 @@
 
 #include "pipex.h"
 
-void	child(int fd[2], t_data *data, int i)
+void	child(int fd[2], t_data *data)
 {
 	close(fd[0]);
 	if (dup2(data->hermes, STDIN_FILENO) == -1)
@@ -36,7 +36,7 @@ void	ak_pipe(t_data *data, int i)
 	if (data->ids[i - (2 + data->here_doc)] < 0)
 		return (perror("pipex"), clear_exit(data, EXIT_FAILURE));
 	if (!data->ids[i - (2 + data->here_doc)])
-		child(fd, data, i);
+		child(fd, data);
 	close(fd[1]);
 	close(data->hermes);
 	data->hermes = fd[0];

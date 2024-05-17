@@ -6,11 +6,12 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/01 13:57:12 by akdovlet          #+#    #+#              #
-#    Updated: 2024/05/17 03:44:37 by akdovlet         ###   ########.fr        #
+#    Updated: 2024/05/17 15:30:15 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:=	pipex
+BNAME	:=	pipex_bonus
 LIBDIR	:=	lib
 LIBFT	:= 	$(LIBDIR)/libft/libft.a
 
@@ -31,9 +32,11 @@ OBJ 	:=	$(patsubst $(SRC_DIR)/%.c, $(BUILD)/%.o, $(SRC))
 DEPS 	:=	$(OBJ:.o=.d)
 
 CC		:=	cc
-CFLAGS	:=	-MMD -MP -Iinclude -I$(LIBDIR)/libft/include -g
+CFLAGS	:=	-Wall -Werror -Wextra -MMD -MP -Iinclude -I$(LIBDIR)/libft/include -g
 
 all: create_dirs $(NAME)
+
+bonus:	create_dirs $(BNAME)
 
 create_dirs: $(BUILD)
 
@@ -42,6 +45,9 @@ $(BUILD):
 
 $(NAME): $(OBJ) $(LIBFT)
 	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
+
+$(BNAME): $(OBJ) $(LIBFT)
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(BNAME)
 
 $(BUILD)/%.o: $(SRC_DIR)/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@

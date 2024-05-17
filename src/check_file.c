@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 23:36:19 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/15 02:57:09 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/17 16:00:10 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ int	check_file(char *file)
 	int	fd;
 
 	if (!file_access(file, R_OK))
-		return (perror(file), -1);
+	{
+		ft_dprintf(2, "pipex: %s: %s\n", file, strerror(errno));
+		return (-1);		
+	}
 	else
 	{
 		fd = open(file, O_RDONLY);

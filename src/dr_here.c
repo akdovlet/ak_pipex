@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 00:17:44 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/16 21:30:15 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/17 18:34:18 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	dr_here(t_data *data)
 	pid = fork();
 	if (pid == -1)
 		clear_exit(data, EXIT_FAILURE);
-	if (!pid)
+	if (pid != 0)
 		dr_dre(data, fd);
 	else
 	{

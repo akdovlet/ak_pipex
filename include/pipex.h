@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 23:07:37 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/15 03:35:50 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/17 18:28:31 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,23 @@
 # include "get_next_line.h"
 # include <stdbool.h>
 # include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <unistd.h>
-# include <sys/wait.h>
 # include <errno.h>
-# include <fcntl.h>
+# include <string.h>
+# include <sys/wait.h>
 
 # define HARDPATH "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
-typedef struct	s_data
+typedef struct s_data
 {
 	pid_t	*ids;
-	char	**path;
 	char	**av;
+	int		ac;
+	char	**path;
 	char	**env;
 	char	**cmd;
 	int		fd[2];
 	int		first;
 	int		last;
-	int		ac;
 	int		hermes;
 	int		cmd_count;
 	int		exit_code;
@@ -46,7 +43,7 @@ typedef struct	s_data
 /******************************ak_pipe.c**************************************/
 
 // Child function for every command except for the last one, executes cmd
-void	child(int fd[2], t_data *data, int i);
+void	child(int fd[2], t_data *data);
 // Will pipe and fork making every cmd communicate, calls child
 void	ak_pipe(t_data *data, int i);
 
@@ -90,4 +87,7 @@ void	seek_and_execute(t_data	*data);
 /******************************setup.c****************************************/
 void	infile_setup(t_data *data, char **av);
 bool	setup(t_data *data, int ac, char **av, char **env);
+
+void	nopath_exec(char *cmd, t_data *data);
+
 #endif

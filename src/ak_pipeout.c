@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 03:05:49 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/16 21:31:09 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/17 10:22:50 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	child_out(t_data *data)
 void	open_outfile(t_data *data)
 {
 	if (data->here_doc)
-		data->last = data->last = open(data->av[data->ac - 1], \
+		data->last = open(data->av[data->ac - 1], \
 		O_WRONLY | O_CREAT | O_APPEND, 0644);
 	else
 		data->last = open(data->av[data->ac - 1], \
