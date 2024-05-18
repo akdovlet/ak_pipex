@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:52:22 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/17 16:12:55 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/18 22:54:01 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool	file_access(char *file, int check)
 	return (false);
 }
 
-char	**parse_env(char **env)
+char	**get_path_from_env(char **env)
 {
 	int	i;
 

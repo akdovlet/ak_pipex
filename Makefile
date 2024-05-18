@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/01 13:57:12 by akdovlet          #+#    #+#              #
-#    Updated: 2024/05/17 15:30:15 by akdovlet         ###   ########.fr        #
+#    Updated: 2024/05/18 23:22:02 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,10 +17,10 @@ LIBFT	:= 	$(LIBDIR)/libft/libft.a
 
 SRC		:=	ak_pipe.c			\
 			ak_pipeout.c		\
-			check_file.c		\
+			clear_exit.c		\
+			cmd_exe.c			\
 			dr_here.c			\
 			env_access.c		\
-			free_exit.c			\
 			main.c				\
 			px_split.c			\
 			seek_and_execute.c	\
@@ -37,6 +37,8 @@ CFLAGS	:=	-Wall -Werror -Wextra -MMD -MP -Iinclude -I$(LIBDIR)/libft/include -g
 all: create_dirs $(NAME)
 
 bonus:	create_dirs $(BNAME)
+
+both: all bonus
 
 create_dirs: $(BUILD)
 
@@ -62,6 +64,7 @@ clean:
 
 fclean: clean
 	@if [ -f $(NAME) ]; then $(RM) -rf $(NAME) && echo "\033[1;31m\tDeleted: $(NAME)\033[0m"; fi
+	@if [ -f $(BNAME) ]; then $(RM) -rf $(BNAME) && echo "\033[1;31m\tDeleted: $(BNAME)\033[0m"; fi
 	@$(MAKE) --no-print-directory fclean -C $(LIBDIR)/libft
 
 re: fclean all

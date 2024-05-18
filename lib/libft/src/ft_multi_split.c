@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 22:07:22 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/14 18:54:46 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/18 20:27:02 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ char	**ft_multi_split(char *str, char *sep)
 	char	**strs;
 
 	tab = NULL;
+	if (!str)
+		return (NULL);
 	word_count = ak_countword(str, sep, &tab);
 	if (word_count == -1)
 		return (free(tab), NULL);

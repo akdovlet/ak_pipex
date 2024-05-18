@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/15 16:05:42 by akdovlet          #+#    #+#              #
-#    Updated: 2024/05/16 22:40:48 by akdovlet         ###   ########.fr        #
+#    Updated: 2024/05/18 22:56:46 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRC		:=	ak_countword.c			\
 			ft_strcmp.c				\
 			ft_strncmp.c			\
 			ft_bzero.c				\
+			ft_free.c				\
 			ft_strchr.c				\
 			ft_strrchr.c			\
 			ft_memmove.c 			\

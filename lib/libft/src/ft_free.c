@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_file.c                                       :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/06 23:36:19 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/17 16:00:10 by akdovlet         ###   ########.fr       */
+/*   Created: 2024/05/18 22:55:52 by akdovlet          #+#    #+#             */
+/*   Updated: 2024/05/18 22:56:08 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int	check_file(char *file)
+void	ft_free(char **str)
 {
-	int	fd;
+	int	i;
 
-	if (!file_access(file, R_OK))
+	i = 0;
+	if (!str)
+		return ;
+	while (str[i])
 	{
-		ft_dprintf(2, "pipex: %s: %s\n", file, strerror(errno));
-		return (-1);		
+		free(str[i]);
+		i++;
 	}
-	else
-	{
-		fd = open(file, O_RDONLY);
-		if (fd < 0)
-			return (perror(file), -1);
-	}
-	return (fd);
+	free(str);
+	str = NULL;
 }

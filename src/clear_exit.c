@@ -6,27 +6,11 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 00:41:28 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/17 18:30:49 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/18 22:56:04 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-void	ft_free(char **str)
-{
-	int	i;
-
-	i = 0;
-	if (!str)
-		return ;
-	while (str[i])
-	{
-		free(str[i]);
-		i++;
-	}
-	free(str);
-	str = NULL;
-}
 
 void	clear_all(t_data *data)
 {
@@ -34,14 +18,14 @@ void	clear_all(t_data *data)
 	ft_free(data->cmd);
 	free(data->ids);
 	data->ids = NULL;
-	if (data->first > 0)
-		close(data->first);
-	data->first = 0;
+	if (data->infile > 0)
+		close(data->infile);
+	data->infile = 0;
 	if (data->hermes > 0)
 		close(data->hermes);
 	data->hermes = 0;
-	if (data->last > 0)
-		close(data->last);
+	if (data->outfile > 0)
+		close(data->outfile);
 }
 
 void	clear_exit(t_data *data, int exit_code)

@@ -6,12 +6,11 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 15:18:45 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/17 18:13:56 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/18 21:29:38 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_dprintf.h"
-#include <stdio.h>
 
 int	print_buffer(int fd, char *buffer, int *j)
 {

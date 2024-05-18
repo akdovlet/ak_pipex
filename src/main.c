@@ -6,23 +6,11 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 23:07:20 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/17 18:00:42 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/18 23:10:45 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-// void	print_env(char **env)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (env[i])
-// 	{
-// 		ft_printf("%s\n", env[i]);
-// 		i++;
-// 	}
-// }
 
 int	main(int ac, char **av, char **env)
 {
@@ -30,12 +18,10 @@ int	main(int ac, char **av, char **env)
 
 	if (ac < 5)
 	{
-		ft_dprintf(STDERR_FILENO, "Error: Invalid number of arguments\n");
+		ft_dprintf(STDERR, "Error: Invalid number of arguments\n");
 		return (1);
 	}
-	// print_env(env);
-	if (!setup(&data, ac, av, env))
-		return (1);
+	setup(&data, ac, av, env);
 	seek_and_execute(&data);
 	clear_all(&data);
 	return (data.exit_code);

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 12:51:50 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/01/07 21:53:06 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/18 23:20:50 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static char	*ft_strndup_custom(char const *s, int *retindex, int index, int n)
 	return (dup);
 }
 
-static void	ft_free(char **strs, int i)
+static void	split_free(char **strs, int i)
 {
 	while (i >= 0)
 	{
@@ -98,7 +98,7 @@ char	**ft_split(char const *s, char c)
 		{
 			splitter[j] = ft_strndup_custom(s, &i, i, ft_charcount(s, i, c));
 			if (!splitter[j++])
-				return (ft_free(splitter, j - 1), NULL);
+				return (split_free(splitter, j - 1), NULL);
 		}
 		i++;
 	}
