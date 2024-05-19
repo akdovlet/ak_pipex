@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:52:22 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/19 01:29:08 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/19 02:56:55 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@ bool	file_access(char *file, int check)
 	return (false);
 }
 
+// No need to malloc hardpath, create a tab as such:
+// hardpath = {
+//	"path1",
+//	"path2",	
+//}
 char	**get_path_from_env(char **env)
 {
 	int	i;
