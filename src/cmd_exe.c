@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 22:39:03 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/18 23:19:53 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/19 01:28:46 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	nopath_exec(char *cmd, t_data *data)
 {
-	if (access(cmd, X_OK) == -1)
+	if (!file_access(cmd, X_OK))
 	{
 		ft_dprintf(STDERR, ERR_MSG, cmd, strerror(errno));
 		free(cmd);
@@ -38,7 +38,7 @@ void	nopath_run(char *cmd, t_data *data)
 		full_path = ft_strjoin(data->path[i], cmd);
 		if (!full_path)
 			return (clear_exit(data, EXIT_FAILURE));
-		if (!access(full_path, F_OK))
+		if (file_access(full_path, F_OK))
 			nopath_exec(full_path, data);
 		free(full_path);
 		i++;
@@ -49,12 +49,12 @@ void	nopath_run(char *cmd, t_data *data)
 
 void	path_run(char *cmd, t_data *data)
 {
-	if (access(cmd, F_OK) == -1)
+	if (!file_access(cmd, F_OK))
 	{
 		ft_dprintf(STDERR, ERR_MSG, cmd, strerror(errno));
 		clear_exit(data, 127);
 	}
-	else if (access(cmd, X_OK) == -1)
+	else if (!file_access(cmd, X_OK))
 	{
 		ft_dprintf(STDERR, ERR_MSG, cmd, strerror(errno));
 		clear_exit(data, 126);

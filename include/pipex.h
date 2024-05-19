@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 23:07:37 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/18 23:10:26 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/19 01:50:49 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@
 # include <sys/wait.h>
 
 # define HARDPATH "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-# define CHILD 0
 # define ERR_MSG "pipex: %s: %s\n"
 # define ERR_CMD "pipex: %s: command not found\n"
 # define STDERR 2
+# define CHILD 0
 
 typedef struct s_data
 {
@@ -67,8 +67,9 @@ void	dr_dre(t_data *data, int *fd);
 void	dr_here(t_data *data);
 
 /********************************env_access.c**********************************/
-//	Will check if env is empty, if so will return a hard-coded path. If env exits,
-//	Will return the path from the env. Otherwise returns the current dir
+//	Will check if env is empty, if so will return 
+//	a hard-coded path. If env exits will return the path from the env.
+//	Otherwise returns the current dir
 char	**get_path_from_env(char **env);
 //	Will check if file has the correct permissions, simply calls access
 bool	file_access(char *file, int check);

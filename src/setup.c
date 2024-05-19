@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 23:41:38 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/18 23:16:19 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/19 01:41:49 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	check_file(char *file)
 	if (!file_access(file, R_OK))
 	{
 		ft_dprintf(STDERR, ERR_MSG, file, strerror(errno));
-		return (-1);		
+		return (-1);
 	}
 	else
 	{
@@ -46,6 +46,10 @@ void	infile_setup(t_data *data, char **av)
 		data->hermes = data->infile;
 }
 
+// Does a lot of the heavy lifing, this isn't some silly parsing. 
+// Instead, like the name implies, it sets all the variables to their right
+// values. This function allows me to not have to change my driver 
+// code regardless how many commands I have to run or if here_doc is given
 void	setup(t_data *data, int ac, char **av, char **env)
 {
 	*data = (t_data){0};
