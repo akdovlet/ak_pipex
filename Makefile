@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/01 13:57:12 by akdovlet          #+#    #+#              #
-#    Updated: 2024/05/18 23:22:02 by akdovlet         ###   ########.fr        #
+#    Updated: 2024/05/19 02:15:41 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,4 +71,4 @@ re: fclean all
 
 -include $(DEPS)
 
-.PHONY: all create_dirs clean fclean re
+.PHONY: all create_dirs clean fclean re bonus both
