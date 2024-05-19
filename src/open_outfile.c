@@ -1,36 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_access.c                                       :+:      :+:    :+:   */
+/*   open_outfile.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/23 17:52:22 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/19 18:32:50 by akdovlet         ###   ########.fr       */
+/*   Created: 2024/05/19 19:09:42 by akdovlet          #+#    #+#             */
+/*   Updated: 2024/05/19 19:09:48 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-bool	file_access(char *file, int check)
+void	open_outfile(t_data *data)
 {
-	if (!access(file, check))
-		return (true);
-	return (false);
-}
-
-char	**get_path_from_env(char **env)
-{
-	int	i;
-
-	i = 0;
-	if (!env[0])
-		return (px_split(HARDPATH, ':'));
-	while (env[i])
-	{
-		if (!ft_strncmp("PATH=", env[i], 5))
-			return (px_split(env[i] + 5, ':'));
-		i++;
-	}
-	return (ft_split("./", '\0'));
+	if (data->here_doc_delimiter)
+		data->outfile = open(data->outfile_name, \
+		O_WRONLY | O_CREAT | O_APPEND, 0644);
+	else
+		data->outfile = open(data->outfile_name, \
+		O_WRONLY | O_CREAT | O_TRUNC, 0644);
 }

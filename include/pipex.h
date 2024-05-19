@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 23:07:37 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/19 01:50:49 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/19 19:23:08 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@
 # define HARDPATH "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 # define ERR_MSG "pipex: %s: %s\n"
 # define ERR_CMD "pipex: %s: command not found\n"
+# define ERR_ARG "Error: Invalid number of arguments\n"
 # define STDERR 2
 # define CHILD 0
 
 typedef struct s_data
 {
-	pid_t	*ids;
+	pid_t	*pid_array;
 	char	**path;
 	char	**env;
 	char	**cmd;
@@ -44,10 +45,10 @@ typedef struct s_data
 }	t_data;
 
 /******************************ak_pipe.c**************************************/
-//	Child function for every command except for the last one, executes cmd
-void	child(int fd[2], t_data *data);
 //	Will pipe and fork making every cmd communicate, calls child
 void	ak_pipe(t_data *data, int i);
+//	Child function for every command except for the last one, executes cmd
+void	child(int fd[2], t_data *data);
 
 /******************************ak_pipeout.c***********************************/
 //	Child function for the last cmd
@@ -60,11 +61,12 @@ void	ak_pipeout(t_data *data, int i);
 void	cmd_exe(t_data *data);
 
 /******************************dr_here.c**************************************/
-//	Forgot about Dre
-void	dr_dre(t_data *data, int *fd);
 //	Creates a pipe and forks, calls dr_dre which reads 
 //	from stdin and writes to pipe. Only called when here_doc_delimiter is set
 void	dr_here(t_data *data);
+//	Forgot about Dre
+void	dr_dre(t_data *data, int *fd);
+bool	delimiter_cmp(char *s1, char *s2);
 
 /********************************env_access.c**********************************/
 //	Will check if env is empty, if so will return 
@@ -73,6 +75,13 @@ void	dr_here(t_data *data);
 char	**get_path_from_env(char **env);
 //	Will check if file has the correct permissions, simply calls access
 bool	file_access(char *file, int check);
+
+/******************************open_infile.c***********************************/
+void	infile_setup(t_data *data, char **av);
+int		infile_check(char *file);
+
+/*****************************open_outfile.c***********************************/
+void	open_outfile(t_data *data);
 
 /********************************free_exit.c***********************************/
 //	Frees everything
@@ -89,7 +98,12 @@ char	**px_split(char const *s, char c);
 void	seek_and_execute(t_data	*data);
 
 /******************************setup.c****************************************/
-//	Iniatilizes the data struct, not here for error checks, only for setup
+/*	Does a lot of the heavy lifing, this isn't some silly parsing 
+	or preemptive error check. 
+	Instead, like the name implies, it sets all the variables to their right
+	values. This function allows me to not have to change my driver 
+	code regardless of how many commands I have to run 
+	or if "here_doc" is given*/
 void	setup(t_data *data, int ac, char **av, char **env);
 
 #endif

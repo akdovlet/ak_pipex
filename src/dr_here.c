@@ -6,24 +6,29 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 00:17:44 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/18 20:52:21 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/19 19:04:32 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-bool	delimiter_cmp(char *s1, char *s2)
+void	dr_here(t_data *data)
 {
-	int	i;
+	int		fd[2];
+	int		status;
+	pid_t	pid;
 
-	i = -1;
-	while ((s1[++i] || s2[i]) && s2[i] != '\n')
-		if (s1[i] != s2[i])
-			return (false);
-	if (s2[i] == '\n' && s2[i + 1] == '\0')
-		if (s1[i] == '\0')
-			return (true);
-	return (false);
+	if (pipe(fd) == -1)
+		clear_exit(data, EXIT_FAILURE);
+	pid = fork();
+	if (pid == -1)
+		clear_exit(data, EXIT_FAILURE);
+	if (pid == CHILD)
+		dr_dre(data, fd);
+	close(fd[1]);
+	data->hermes = fd[0];
+	waitpid(pid, &status, 0);
+	data->exit_code = WEXITSTATUS(status);
 }
 
 void	dr_dre(t_data *data, int *fd)
@@ -49,24 +54,16 @@ void	dr_dre(t_data *data, int *fd)
 	clear_exit(data, EXIT_SUCCESS);
 }
 
-void	dr_here(t_data *data)
+bool	delimiter_cmp(char *s1, char *s2)
 {
-	int		fd[2];
-	int		status;
-	pid_t	pid;
+	int	i;
 
-	if (pipe(fd) == -1)
-		clear_exit(data, EXIT_FAILURE);
-	pid = fork();
-	if (pid == -1)
-		clear_exit(data, EXIT_FAILURE);
-	if (pid == CHILD)
-		dr_dre(data, fd);
-	else
-	{
-		close(fd[1]);
-		data->hermes = fd[0];
-		waitpid(pid, &status, 0);
-		data->exit_code = WEXITSTATUS(status);
-	}
+	i = -1;
+	while ((s1[++i] || s2[i]) && s2[i] != '\n')
+		if (s1[i] != s2[i])
+			return (false);
+	if (s2[i] == '\n' && s2[i + 1] == '\0')
+		if (s1[i] == '\0')
+			return (true);
+	return (false);
 }

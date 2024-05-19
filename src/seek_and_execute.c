@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 23:52:25 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/19 02:16:16 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/19 19:05:11 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	seek_and_execute(t_data	*data)
 	int	i;
 
 	i = 0;
-	data->ids = malloc(sizeof(pid_t) * data->cmd_count);
-	if (!data->ids)
+	data->pid_array = malloc(sizeof(pid_t) * data->cmd_count);
+	if (!data->pid_array)
 		return (clear_exit(data, EXIT_FAILURE));
 	if (data->here_doc_delimiter)
 		dr_here(data);

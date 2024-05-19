@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/01 13:57:12 by akdovlet          #+#    #+#              #
-#    Updated: 2024/05/19 02:15:41 by akdovlet         ###   ########.fr        #
+#    Updated: 2024/05/19 19:14:14 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,8 @@ SRC		:=	ak_pipe.c			\
 			dr_here.c			\
 			env_access.c		\
 			main.c				\
+			open_infile.c		\
+			open_outfile.c		\
 			px_split.c			\
 			seek_and_execute.c	\
 			setup.c

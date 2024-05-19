@@ -2,6 +2,7 @@
 *.txt
 *.sh
 *tester*
+*zomb*
 
 # Vscode bullshit
 .vscode

@@ -12,6 +12,24 @@
 
 #include "pipex.h"
 
+void	ak_pipe(t_data *data, int i)
+{
+	int	fd[2];
+
+	if (data->infile == -1 && i == 0)
+		return ;
+	if (pipe(fd) == -1)
+		return (perror("pipe"), clear_exit(data, EXIT_FAILURE));
+	data->pid_array[i] = fork();
+	if (data->pid_array[i] < 0)
+		return (perror("fork"), clear_exit(data, EXIT_FAILURE));
+	if (data->pid_array[i] == CHILD)
+		child(fd, data);
+	close(fd[1]);
+	close(data->hermes);
+	data->hermes = fd[0];
+}
+
 void	child(int fd[2], t_data *data)
 {
 	close(fd[0]);
@@ -22,22 +40,4 @@ void	child(int fd[2], t_data *data)
 		return (perror("dup2"), clear_exit(data, EXIT_FAILURE));
 	close(fd[1]);
 	cmd_exe(data);
-}
-
-void	ak_pipe(t_data *data, int i)
-{
-	int	fd[2];
-
-	if (data->infile == -1 && i == 0)
-		return ;
-	if (pipe(fd) == -1)
-		return (perror("pipe"), clear_exit(data, EXIT_FAILURE));
-	data->ids[i] = fork();
-	if (data->ids[i] < 0)
-		return (perror("fork"), clear_exit(data, EXIT_FAILURE));
-	if (data->ids[i] == CHILD)
-		child(fd, data);
-	close(fd[1]);
-	close(data->hermes);
-	data->hermes = fd[0];
 }

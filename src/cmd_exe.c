@@ -6,28 +6,24 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 22:39:03 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/19 02:45:55 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/19 19:37:34 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-// NOt explicit enough
 void	nopath_exec(char *cmd, t_data *data)
 {
 	if (!file_access(cmd, X_OK))
 	{
 		ft_dprintf(STDERR, ERR_MSG, cmd, strerror(errno));
-		free(cmd);
 		clear_exit(data, 126);
 	}
 	execve(cmd, data->cmd, data->env);
 	ft_dprintf(STDERR, ERR_MSG, cmd, strerror(errno));
-	free(cmd);
 	clear_exit(data, 127);
 }
 
-// Not explicit enough
 void	nopath_run(char *cmd, t_data *data)
 {
 	int		i;
