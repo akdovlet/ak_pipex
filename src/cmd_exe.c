@@ -6,22 +6,39 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 22:39:03 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/19 19:37:34 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/20 18:06:43 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	nopath_exec(char *cmd, t_data *data)
+void	cmd_exe(t_data *data)
 {
-	if (!file_access(cmd, X_OK))
+	if (!data->cmd[0])
+	{
+		ft_dprintf(STDERR, ERR_CMD, data->cmd[0], strerror(errno));
+		clear_all_exit(data, 127);
+	}
+	if (ft_strchr(data->cmd[0], '/'))
+		path_run(data->cmd[0], data);
+	else
+		nopath_run(data->cmd[0], data);
+}
+
+void	path_run(char *cmd, t_data *data)
+{
+	if (!file_access(cmd, F_OK))
 	{
 		ft_dprintf(STDERR, ERR_MSG, cmd, strerror(errno));
-		clear_exit(data, 126);
+		clear_all_exit(data, 127);
+	}
+	else if (!file_access(cmd, X_OK))
+	{
+		ft_dprintf(STDERR, ERR_MSG, cmd, strerror(errno));
+		clear_all_exit(data, 126);
 	}
 	execve(cmd, data->cmd, data->env);
-	ft_dprintf(STDERR, ERR_MSG, cmd, strerror(errno));
-	clear_exit(data, 127);
+	clear_all_exit(data, 127);
 }
 
 void	nopath_run(char *cmd, t_data *data)
@@ -35,41 +52,24 @@ void	nopath_run(char *cmd, t_data *data)
 	{
 		full_path = ft_strjoin(data->path[i], cmd);
 		if (!full_path)
-			return (clear_exit(data, EXIT_FAILURE));
+			return (clear_all_exit(data, EXIT_FAILURE));
 		if (file_access(full_path, F_OK))
 			nopath_exec(full_path, data);
 		free(full_path);
 		i++;
 	}
 	ft_dprintf(STDERR, ERR_CMD, data->cmd[0]);
-	clear_exit(data, 127);
+	clear_all_exit(data, 127);
 }
 
-void	path_run(char *cmd, t_data *data)
+void	nopath_exec(char *cmd, t_data *data)
 {
-	if (!file_access(cmd, F_OK))
+	if (!file_access(cmd, X_OK))
 	{
 		ft_dprintf(STDERR, ERR_MSG, cmd, strerror(errno));
-		clear_exit(data, 127);
-	}
-	else if (!file_access(cmd, X_OK))
-	{
-		ft_dprintf(STDERR, ERR_MSG, cmd, strerror(errno));
-		clear_exit(data, 126);
+		clear_all_exit(data, 126);
 	}
 	execve(cmd, data->cmd, data->env);
-	clear_exit(data, 127);
-}
-
-void	cmd_exe(t_data *data)
-{
-	if (!data->cmd[0])
-	{
-		ft_dprintf(STDERR, ERR_CMD, data->cmd[0], strerror(errno));
-		clear_exit(data, 127);
-	}
-	if (ft_strchr(data->cmd[0], '/'))
-		path_run(data->cmd[0], data);
-	else
-		nopath_run(data->cmd[0], data);
+	ft_dprintf(STDERR, ERR_MSG, cmd, strerror(errno));
+	clear_all_exit(data, 127);
 }

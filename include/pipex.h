@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 23:07:37 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/19 19:23:08 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/20 18:21:05 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define PIPEX_H
 
 # include "libft.h"
-# include "get_next_line.h"
 # include <stdbool.h>
 # include <stdio.h>
 # include <errno.h>
@@ -59,6 +58,14 @@ void	ak_pipeout(t_data *data, int i);
 /******************************cmd_exe.c**************************************/
 //	Will execute the command and return the correct exit code
 void	cmd_exe(t_data *data);
+/*if command is provided with a path such as "/usr/bin/cat"
+check if it exits, if it's executable and then send it traight to execve*/
+void	path_run(char *cmd, t_data *data);
+/*If no path is given, find its path with access() and
+ then send it to nopath_exec()*/
+void	nopath_run(char *cmd, t_data *data);
+/*Function that checks execution rights and send the command to execve*/
+void	nopath_exec(char *cmd, t_data *data);
 
 /******************************dr_here.c**************************************/
 //	Creates a pipe and forks, calls dr_dre which reads 
@@ -66,6 +73,7 @@ void	cmd_exe(t_data *data);
 void	dr_here(t_data *data);
 //	Forgot about Dre
 void	dr_dre(t_data *data, int *fd);
+//	looks for the delimiter by excluding the '\n' character at the end
 bool	delimiter_cmp(char *s1, char *s2);
 
 /********************************env_access.c**********************************/
@@ -77,17 +85,21 @@ char	**get_path_from_env(char **env);
 bool	file_access(char *file, int check);
 
 /******************************open_infile.c***********************************/
+/* Precise setup. If the infile isn't open to communicate, we will open
+/dev/null which is a file that contains EOF, as to not break a command by
+sending it an invalid fd. This is to mimic the behavior of bash*/
 void	infile_setup(t_data *data, char **av);
 int		infile_check(char *file);
 
 /*****************************open_outfile.c***********************************/
+/* Open differently in case here_doc */
 void	open_outfile(t_data *data);
 
 /********************************free_exit.c***********************************/
+//	Calls clear_all and exits with the right exit code
+void	clear_all_exit(t_data *data, int exit_code);
 //	Frees everything
 void	clear_all(t_data *data);
-//	Calls clear_all and exits with the right exit code
-void	clear_exit(t_data *data, int exit_code);
 
 /******************************px_split.c**************************************/
 // ft_split with a twist: adds '/' add the end of each word

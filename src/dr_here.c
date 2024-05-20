@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 00:17:44 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/19 19:04:32 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/20 18:06:43 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	dr_here(t_data *data)
 	pid_t	pid;
 
 	if (pipe(fd) == -1)
-		clear_exit(data, EXIT_FAILURE);
+		clear_all_exit(data, EXIT_FAILURE);
 	pid = fork();
 	if (pid == -1)
-		clear_exit(data, EXIT_FAILURE);
+		clear_all_exit(data, EXIT_FAILURE);
 	if (pid == CHILD)
 		dr_dre(data, fd);
 	close(fd[1]);
@@ -41,7 +41,7 @@ void	dr_dre(t_data *data, int *fd)
 		write(STDOUT_FILENO, "> ", 2);
 		line = get_next_line(STDIN_FILENO);
 		if (!line)
-			clear_exit(data, EXIT_FAILURE);
+			clear_all_exit(data, EXIT_FAILURE);
 		if (delimiter_cmp(data->here_doc_delimiter, line))
 		{
 			free(line);
@@ -51,7 +51,7 @@ void	dr_dre(t_data *data, int *fd)
 		free(line);
 	}
 	close(fd[1]);
-	clear_exit(data, EXIT_SUCCESS);
+	clear_all_exit(data, EXIT_SUCCESS);
 }
 
 bool	delimiter_cmp(char *s1, char *s2)

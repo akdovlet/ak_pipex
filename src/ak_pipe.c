@@ -19,10 +19,10 @@ void	ak_pipe(t_data *data, int i)
 	if (data->infile == -1 && i == 0)
 		return ;
 	if (pipe(fd) == -1)
-		return (perror("pipe"), clear_exit(data, EXIT_FAILURE));
+		return (perror("pipe"), clear_all_exit(data, EXIT_FAILURE));
 	data->pid_array[i] = fork();
 	if (data->pid_array[i] < 0)
-		return (perror("fork"), clear_exit(data, EXIT_FAILURE));
+		return (perror("fork"), clear_all_exit(data, EXIT_FAILURE));
 	if (data->pid_array[i] == CHILD)
 		child(fd, data);
 	close(fd[1]);
@@ -34,10 +34,10 @@ void	child(int fd[2], t_data *data)
 {
 	close(fd[0]);
 	if (dup2(data->hermes, STDIN_FILENO) == -1)
-		return (perror("dup2"), clear_exit(data, EXIT_FAILURE));
+		return (perror("dup2"), clear_all_exit(data, EXIT_FAILURE));
 	close(data->hermes);
 	if (dup2(fd[1], STDOUT_FILENO) == -1)
-		return (perror("dup2"), clear_exit(data, EXIT_FAILURE));
+		return (perror("dup2"), clear_all_exit(data, EXIT_FAILURE));
 	close(fd[1]);
 	cmd_exe(data);
 }
