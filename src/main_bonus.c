@@ -1,36 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_access.c                                       :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/23 17:52:22 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/22 16:52:59 by akdovlet         ###   ########.fr       */
+/*   Created: 2024/05/21 15:44:42 by akdovlet          #+#    #+#             */
+/*   Updated: 2024/05/22 16:52:47 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-bool	file_access(char *file, int check)
+int	main(int ac, char **av, char **env)
 {
-	if (!access(file, check))
-		return (true);
-	return (false);
-}
+	t_data	data;
 
-char	**get_path_from_env(char **env)
-{
-	int	i;
-
-	i = 0;
-	if (!env[0])
-		return (px_split(HARDPATH, ':'));
-	while (env[i])
+	if (ac < 5)
 	{
-		if (!ft_strncmp("PATH=", env[i], 5))
-			return (px_split(env[i] + 5, ':'));
-		i++;
+		ft_dprintf(STDERR, ERR_ARG);
+		return (1);
 	}
-	return (ft_split("./", '\0'));
+	setup(&data, ac, av, env);
+	seek_and_execute(&data);
+	clear_all(&data);
+	return (data.exit_code);
 }
