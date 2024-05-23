@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 03:05:49 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/20 18:06:43 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/20 23:26:04 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@ void	ak_pipeout(t_data *data, int i)
 
 	j = 0;
 	status = 0;
-	open_outfile(data);
-	if (data->outfile < 0)
-		return (perror(data->outfile_name), clear_all_exit(data, EXIT_FAILURE));
 	data->pid_array[i] = fork();
 	if (data->pid_array[i] < 0)
 		return (perror("fork"), clear_all_exit(data, EXIT_FAILURE));
@@ -39,6 +36,9 @@ void	ak_pipeout(t_data *data, int i)
 
 void	child_out(t_data *data)
 {
+	open_outfile(data);
+	if (data->outfile < 0)
+		return (perror(data->outfile_name), clear_all_exit(data, EXIT_FAILURE));
 	if (dup2(data->hermes, STDIN_FILENO) == -1)
 		clear_all_exit(data, EXIT_FAILURE);
 	close(data->hermes);
