@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 22:39:03 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/24 00:05:37 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/05/27 09:35:21 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	nopath_exec(char *full_path, t_data *data)
 	if (!file_access(full_path, X_OK))
 	{
 		ft_dprintf(STDERR, ERR_MSG, full_path, strerror(errno));
+		free(full_path);
 		clear_all_exit(data, 126);
 	}
 	execve(full_path, data->cmd, data->env);
