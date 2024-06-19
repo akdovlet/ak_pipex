@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 03:05:49 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/27 19:11:39 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/06/19 11:45:10 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,13 @@ void	ak_pipeout(t_data *data, int i)
 	while (j < data->cmd_count)
 	{
 		waitpid(data->pid_array[j], &status, 0);
-		data->exit_code = WEXITSTATUS(status);
+		if (WIFSIGNALED(status))
+		{
+			data->exit_code = 128 + WTERMSIG(status);
+			ft_dprintf(STDERR_FILENO, "Segmentation fault\n");
+		}
+		else
+			data->exit_code = WEXITSTATUS(status);
 		j++;
 	}
 }
